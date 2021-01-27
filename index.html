@@ -83,13 +83,13 @@
       © 2020 Mesto Russia
     </footer>
     <div class="popup popup_opened">
-        <div class="popup__container">
-            <form>
+            <form class="popup__container">
                 <p class="popup__header">Редактировать профиль</p>
-                <input type="text" name="name" value="Жак-Ив Кусто">
-                <input type="text" name="profession" value="Исследователь океана">
-                <input type="submit">
-            </form>
-        </div>
+                <div>
+                    <input type="text" name="name" value="Жак-Ив Кусто" class="popup__input">
+                    <input type="text" name="profession" value="Исследователь океана" class="popup__input">
+                </div>
+                <input type="submit" class="button button_type_save popup__button" value="Сохранить">
+            </form> 
     </div>
 </body>

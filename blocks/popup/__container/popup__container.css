@@ -1,5 +1,6 @@
 @media all and (max-width: 426px){
     .popup__container {
+        display: block;
         position: sticky;
         top: 72.62px;
         margin-right: auto;
