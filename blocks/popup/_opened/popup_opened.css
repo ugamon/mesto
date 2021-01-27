@@ -1,0 +1,6 @@
+@media all and (max-width: 426px){
+    .popup_opened{
+        display: flex;
+        
+    }
+}

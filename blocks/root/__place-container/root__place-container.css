@@ -1,0 +1,8 @@
+@media all and (max-width: 426px){
+    .root__place-container {
+        margin-top: 36px;
+        margin-right: auto;
+        margin-bottom: 0;
+        margin-right: auto;
+    }
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./pages/index.css" rel="stylesheet">
+  <title>Mesto</title>
+</head>
+<body class="root">
+    <header class="header root__header">
+        <img class="header__logo" src="./images/logo.svg" alt="Место, логотип">   
+    </header>
+    <main>
+        <section class="profile root__profile">
+            <img class="profile__avatar" src="./images/image.jpg" alt="Жак-Ив Кусто">
+            <div class="profile__info">
+                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <a class="button button_type_edit"></a>
+            </div>
+            <p class="profile__profession">Исследователь океана</p>
+            <button class="profile__add-button button button_type_add"></button>
+            
+        </section>
+        <section class="place-container root__place-container">
+            <article class="place">
+                <img class="place__image" src="./images/Karachaevo.jpg" alt="Карачаево-Черкесия">
+                <div class="place__header"> 
+                    <h2 class="place__title">
+                        Карачаево-Черкесия
+                    </h2>
+                    <button class="button button_type_like"></button>    
+                </div>
+            </article>
+            <article class="place">
+                <img class="place__image" src="./images/Elbrus.jpg" alt="Эльбрус">
+                <div class="place__header"> 
+                    <h2 class="place__title">
+                        Гора Эльбрус
+                    </h2>
+                    <button class="button button_type_like"></button>    
+                </div>
+            </article>
+            <article class="place">
+                <img class="place__image" src="./images/Dombai.jpg" alt="Домбай" >
+                <div class="place__header"> 
+                    <h2 class="place__title">
+                        Домбай
+                    </h2>
+                    <button class="button button_type_like"></button>    
+                </div>
+            </article>
+            <article class="place">
+                <img class="place__image" src="./images/Elbrus.jpg" alt="Эльбрус">
+                <div class="place__header"> 
+                    <h2 class="place__title">
+                        Гора Эльбрус
+                    </h2>
+                    <button class="button button_type_like"></button>    
+                </div>
+            </article>
+            <article class="place">
+                <img class="place__image" src="./images/Dombai.jpg" alt="Домбай">
+                <div class="place__header"> 
+                    <h2 class="place__title">
+                        Домбай
+                    </h2>
+                    <button class="button button_type_like"></button>    
+                </div>
+            </article>
+            <article class="place">
+                <img class="place__image" src="./images/Karachaevo.jpg" alt="Карачаево-Черкесия">
+                <div class="place__header"> 
+                    <h2 class="place__title">
+                        Карачаево-Черкесия
+                    </h2>
+                    <button class="button button_type_like"></button>    
+                </div>
+            </article>
+        </section>
+        
+    </main>
+    <footer class="footer root__footer">
+      © 2020 Mesto Russia
+    </footer>
+    <div class="popup popup_opened">
+        <div class="popup__container">
+            <form>
+                <p class="popup__header">Редактировать профиль</p>
+                <input type="text" name="name" value="Жак-Ив Кусто">
+                <input type="text" name="profession" value="Исследователь океана">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+</body>

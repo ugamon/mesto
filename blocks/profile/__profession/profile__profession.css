@@ -1,0 +1,16 @@
+@media all and (max-width: 426px){
+    .profile__profession {
+        margin-top: 14px;
+        margin-bottom: 0;
+        
+        font-family: 'Inter', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+
+        color: #FFFFFF;
+
+    };
+}

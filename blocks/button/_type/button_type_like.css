@@ -1,0 +1,13 @@
+@media all and (max-width: 426px){
+    .button_type_like {
+        
+        width: calc(22px + 30px);
+        height: 19px;
+
+        background-image: url('../../../images/like-button.svg');
+        background-position: left;
+        background-repeat: no-repeat;
+        
+        filter: brightness(0.1);
+    }
+}

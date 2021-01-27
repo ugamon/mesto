@@ -1,0 +1,11 @@
+@media all and (max-width: 426px){
+        .profile__edit-button {
+            
+            width: 18px;
+            height: 18px;
+            background: url('../../../images/edit_button.svg') no-repeat;
+            background-size: cover;
+            border: transparent;
+            margin-bottom: 6px; 
+        }
+}

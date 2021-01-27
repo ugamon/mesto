@@ -1,0 +1,14 @@
+@media all and (max-width: 426px){
+    .profile__name {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-right: 10px;
+
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        font-size: 27px;
+        line-height: 33px;
+        text-align: center;
+        color: #FFFFFF;
+    }
+}

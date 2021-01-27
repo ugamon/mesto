@@ -1,0 +1,12 @@
+@media all and (max-width: 426px){
+    .button_type_edit{
+        width: 18px;
+        height: 18px;
+        
+        background: url('../../../images/edit_button.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        
+        border: transparent;
+    }
+}

@@ -1,0 +1,8 @@
+@media all and (max-width: 426px){
+    .root__footer {
+        margin-top:48px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 36px;
+    }
+}

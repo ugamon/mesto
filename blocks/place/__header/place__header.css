@@ -1,0 +1,12 @@
+@media all and (max-width: 426px){
+    .place__header {
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: calc(361px - 282px);
+        width: 100%;
+        
+
+    }
+}

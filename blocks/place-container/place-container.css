@@ -1,0 +1,8 @@
+@media all and (max-width: 426px){
+    .place-container {
+        display: grid;
+        grid-template-columns: 282px;
+        gap: 20px;
+        justify-content: center;
+    }
+}
