@@ -1,0 +1,11 @@
+@media all and (max-width: 426px){
+    .popup__close-button{
+        background-image: url('../../../images/Close\ Icon.png');
+        margin-bottom: 13.62px;
+        height: 26px;
+        width: 26px;
+        align-self: flex-end;
+        background-position: center;
+    }
+    
+}

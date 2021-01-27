@@ -1,0 +1,5 @@
+@media all and (max-width: 426px){
+    .popup__save-button {
+        margin: 45px auto 25px auto;
+    }
+}
