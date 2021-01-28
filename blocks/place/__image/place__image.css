@@ -1,5 +1,3 @@
-@media all and (max-width: 426px){
-    .place__image {
-        max-height: 288px;
+.place__image {
+        max-height: 282px;
     }
-}

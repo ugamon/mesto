@@ -1,5 +1,4 @@
-@media all and (max-width: 426px){
-    .button_type_like {
+.button_type_like {
         
         width: calc(22px + 30px);
         height: 19px;
@@ -10,4 +9,3 @@
         
         filter: brightness(0.1);
     }
-}
