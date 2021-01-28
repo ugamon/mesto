@@ -1,11 +1,9 @@
-@media all and (max-width: 426px){
-    .button {
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-sizing: border-box;
-        border: 0;
-        background-color: transparent;
-    }
+.button {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 0;
+    background-color: transparent;
 }

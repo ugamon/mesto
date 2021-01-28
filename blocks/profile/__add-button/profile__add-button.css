@@ -3,3 +3,10 @@
         margin-top: 36px;
     }
 }
+
+@media all and (min-width: 427px){
+    .profile__add-button {
+       align-self: center;
+       justify-self: end;
+    }
+}

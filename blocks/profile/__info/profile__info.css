@@ -1,7 +1,18 @@
+.profile__info {
+    display: flex;
+    align-items: center;
+}
+
 @media all and (max-width: 426px) {
     .profile__info {
-        display: flex;
-        align-items: center;
         margin-top: 22.25px;
+    }
+}
+
+@media all and (min-width: 427px){
+    .profile__info {
+        margin-top: 0;
+        max-width: 336px;
+        justify-content: space-between;
     }
 }

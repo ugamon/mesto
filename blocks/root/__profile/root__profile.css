@@ -3,3 +3,9 @@
         margin-top: 42px;
     }
 }
+
+@media all and (min-width: 427px){
+    .root__profile {
+        margin: 36.25px auto 0 auto;
+    }
+}
