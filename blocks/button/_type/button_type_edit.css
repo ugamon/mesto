@@ -1,12 +1,24 @@
+.button_type_edit {
+    background: url('../../../images/edit_button.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    border: transparent;
+    background-size: cover;
+}
+
+
 @media all and (max-width: 426px){
     .button_type_edit{
         width: 18px;
         height: 18px;
-        
-        background: url('../../../images/edit_button.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        
-        border: transparent;
+    
+    }
+}
+
+@media all and (min-width: 427px){
+    .button_type_edit{
+        width: 24px;
+        height: 24px;
+    
     }
 }
