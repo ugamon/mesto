@@ -3,3 +3,9 @@
         margin: 45px auto 25px auto;
     }
 }
+
+@media all and (min-width: 427px){
+    .popup__save-button {
+        margin: 48px auto 37px auto;
+    }
+}
