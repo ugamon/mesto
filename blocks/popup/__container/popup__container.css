@@ -21,8 +21,7 @@
 
 @media all and (min-width: 480px){
     .popup__container{
-        width: 470px;   
+        width: 470px;  
         top: 146.72px;
-        
     }
 }
