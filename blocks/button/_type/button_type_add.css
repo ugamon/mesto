@@ -6,8 +6,11 @@
     background-repeat: no-repeat;
 }
 
+.button_type_add:hover {
+    opacity: 0.6;
+}
 
-@media all and (max-width: 426px){
+@media all and (max-width: 480px){
     .button_type_add {
         width: 282px;
         height: 50px;
@@ -15,9 +18,36 @@
     }
 }
 
-@media all and (min-width: 427px){
+@media all and (min-width: 480px){
+    .button_type_add {
+
+        width: calc(100px * 0.8);
+        height: calc(50px * 0.8) ;
+        margin-right: 10px;    
+    }
+}
+
+@media all and (min-width: 530px){
+    .button_type_add {
+        width: 100px;
+        height: 50px;
+        margin-right: 27px;
+
+    }
+}
+
+
+
+@media all and (min-width: 650px){
     .button_type_add {
         width: 150px;
         height: 50px;
+        margin-right: 27px;
+    }
+}
+
+@media all and (min-width: 880px){
+    .button_type_add {
+        margin-right: 0;
     }
 }

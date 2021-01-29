@@ -19,9 +19,6 @@
 @import url('../blocks/button/button.css');
 @import url('../blocks/button/_type/button_type_edit.css');
 @import url('../blocks/profile/__add-button/profile__add-button.css');
-
-
-@import url('../blocks/button/__add-symbol/button__add-symbol.css');
 @import url('../blocks/button/_type/button_type_add.css');
 
 @import url('../blocks/place-container/place-container.css');

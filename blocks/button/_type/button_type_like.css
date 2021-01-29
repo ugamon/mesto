@@ -1,11 +1,21 @@
 .button_type_like {
         
-        width: calc(22px + 30px);
+        width: 22px;
         height: 19px;
-
-        background-image: url('../../../images/like-button.svg');
-        background-position: left;
-        background-repeat: no-repeat;
-        
         filter: brightness(0.1);
+        margin-right: 30px;
+        fill: none;
+        stroke: black;
+        stroke-width: 2px;
+        overflow: visible;
+        
     }
+
+.button_type_like:active {
+    fill: black;
+    stroke: none;
+}
+
+.button_type_like:hover {
+   stroke-opacity: 0.5;
+}

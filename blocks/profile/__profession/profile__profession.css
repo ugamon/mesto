@@ -8,7 +8,7 @@
 
 }
 
-@media all and (max-width: 426px){
+@media all and (max-width: 480px){
     .profile__profession {
         margin-top: 14px;
         font-size: 14px;
@@ -21,7 +21,7 @@
     .profile__profession {
         margin-top: 16px;
         font-size: 18px;
-        line-height: 21,78px;
+        line-height: 21.78px;
         text-align: start;
     }
 }
