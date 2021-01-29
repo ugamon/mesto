@@ -6,6 +6,10 @@
     background-size: cover;
 }
 
+.button_type_edit:hover{
+    opacity: 0.6;
+}
+
 
 @media all and (max-width: 426px){
     .button_type_edit{

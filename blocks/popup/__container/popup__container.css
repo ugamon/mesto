@@ -10,7 +10,7 @@
 }
 
 
-@media all and (max-width: 426px){
+@media all and (max-width: 480px){
     .popup__container{
         
         top: 72.65px;
@@ -19,7 +19,7 @@
 }
 
 
-@media all and (min-width: 427px){
+@media all and (min-width: 480px){
     .popup__container{
         width: 470px;    
         top: 146.72px;
