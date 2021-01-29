@@ -1,16 +1,33 @@
+.button_type_save {
+    background: #000000;
+    border-radius: 2px;
+
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+
 @media all and (max-width: 426px){
     .button_type_save {
         width: 238px;
         height: 46px;
-        background: #000000;
-        border-radius: 2px;
-
-        font-family: 'Inter', sans-serif;
-        font-weight: normal;
+    
         font-size: 14px;
         line-height: 17px;
-        text-align: center;
-
-        color: #FFFFFF;
     }
 }
+
+@media all and (min-width: 427px){
+    .button_type_save {
+        width: 358px;
+        height: 50px;
+    
+        font-size: 18px;
+        line-height: 22px;
+    }
+}
+
+
