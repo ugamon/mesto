@@ -1,10 +1,10 @@
-    .place{
-        display: flex;
-        flex-direction: column;
+.place {
+  display: flex;
+  flex-direction: column;
 
-        justify-content: center;
-        align-items: center;
+  justify-content: center;
+  align-items: center;
 
-        border-radius: 10px;
-        overflow: hidden;
-    }
+  border-radius: 10px;
+  overflow: hidden;
+}

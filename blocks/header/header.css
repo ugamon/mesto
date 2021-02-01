@@ -1,17 +1,17 @@
 .header {
+  border-bottom: 1px solid #545454;
+  opacity: 0.7;
+}
+
+@media all and (max-width: 881px) {
+  .header {
+    max-width: 100%;
+  }
+}
+
+@media all and (min-width: 881px) {
+  .header {
+    max-width: 880px;
     border-bottom: 1px solid #545454;
-    opacity: .7;
-}
-
-@media all and (max-width: 881px){
-    .header{
-        max-width: 100%;
-    }
-}
-
-@media all and (min-width: 881px){
-    .header{
-        max-width: 880px;
-        border-bottom: 1px solid #545454;
-    }
+  }
 }
