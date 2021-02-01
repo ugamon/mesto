@@ -1,25 +1,11 @@
-.footer {
-    
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    color: #545454;
-
-}
-
-
 @media all and (max-width: 426px){
     .footer {
         max-width: 282px;
-        font-size: 14px;
-        line-height: 17px;
     }
 }
 
 @media all and (min-width: 427px){
     .footer {
         max-width: 880px;
-        font-size: 18px;
-        line-height: 22px;
     }
 }

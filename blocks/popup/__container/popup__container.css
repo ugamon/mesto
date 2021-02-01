@@ -1,7 +1,8 @@
 .popup__container{
     left: 50%;
-    transform: translateX(-50%);
-    
+    top: 50%;
+    transform: translate(-50%, -50%);
+
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -10,18 +11,8 @@
 }
 
 
-@media all and (max-width: 480px){
-    .popup__container{
-        
-        top: 72.65px;
-        
-    }
-}
-
-
 @media all and (min-width: 480px){
     .popup__container{
         width: 470px;
-        top: 146.72px;
     }
 }

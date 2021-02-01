@@ -2,9 +2,10 @@
     .header__logo {
         margin-left: 27px;
         margin-top: 0;
+        margin-bottom: 31.6px;
 
-        width: 103,74px;
-        height: 24,4px;
+        width: 103.74px;
+        height: 24.4px;
     }
 }
 
@@ -15,5 +16,6 @@
 
         width: 142px;
         height: 33px;
+        margin-bottom: 41px;
     }
 }
