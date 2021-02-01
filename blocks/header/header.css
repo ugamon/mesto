@@ -1,5 +1,6 @@
 .header {
     border-bottom: 1px solid #545454;
+    opacity: .7;
 }
 
 @media all and (max-width: 881px){

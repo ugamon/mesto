@@ -12,7 +12,7 @@
 @media all and (min-width: 427px){
     .profile__info {
         margin-top: 0;
-        max-width: 336px;
+        max-width: 340px;
         justify-content: space-between;
     }
 }
