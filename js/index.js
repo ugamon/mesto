@@ -11,6 +11,8 @@ let nameField = root.querySelector('.profile__name');
 
 const togglePopup = (e) => {
     e.preventDefault();
+    nameInput.value = nameField.textContent;
+    jobInput.value = jobField.textContent;
     popup.classList.toggle("popup_opened");
 
 }
