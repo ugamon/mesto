@@ -9,10 +9,13 @@ let jobInput = formElement.querySelector('input[name=profession]')
 let jobField = root.querySelector('.profile__profession');
 let nameField = root.querySelector('.profile__name');
 
+
+/* перенес первичное заполнение полей в popup из callback функции */
+nameInput.value = nameField.textContent;
+jobInput.value = jobField.textContent;
+
 const togglePopup = (e) => {
     e.preventDefault();
-    nameInput.value = nameField.textContent;
-    jobInput.value = jobField.textContent;
     popup.classList.toggle("popup_opened");
 
 }
