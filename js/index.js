@@ -10,14 +10,20 @@ let jobField = root.querySelector('.profile__profession');
 let nameField = root.querySelector('.profile__name');
 
 
-/* перенес первичное заполнение полей в popup из callback функции */
-nameInput.value = nameField.textContent;
-jobInput.value = jobField.textContent;
+/* спасибо за подсказку, ступил =) теперь понятно что нужно было сделать. */
 
-const togglePopup = (e) => {
+
+const openPopup = (e) => {
     e.preventDefault();
+    nameInput.value = nameField.textContent;
+    jobInput.value = jobField.textContent;
     popup.classList.toggle("popup_opened");
 
+}
+
+const closePopup = (e) => {
+    e.preventDefault();
+    popup.classList.toggle("popup_opened");
 }
 
 const submitHandler = (e) => {
@@ -29,7 +35,7 @@ const submitHandler = (e) => {
 }
 
 
-editButton.addEventListener("click", togglePopup);
-closeButton.addEventListener("click", togglePopup);
+editButton.addEventListener("click", openPopup);
+closeButton.addEventListener("click", closePopup);
 formElement.addEventListener("submit", submitHandler);
 
