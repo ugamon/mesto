@@ -44,14 +44,14 @@ const initialCards = [
 
 
 const placeTemplate = document.querySelector('#place-template').content;
-const placeContainer = document.querySelector('.place-container');
+const placeContainer = root.querySelector('.place-container');
 
 
-initialCards.map((item) => {
+initialCards.map(({link, alt, name}) => {
     const placeCard = placeTemplate.querySelector('.place').cloneNode(true);
-    placeCard.querySelector('.place__image').src = item.link;
-    placeCard.querySelector('.place__image').alt = item.alt;
-    placeCard.querySelector('.place__title').textContent = item.name;
+    placeCard.querySelector('.place__image').src = link;
+    placeCard.querySelector('.place__image').alt = alt;
+    placeCard.querySelector('.place__title').textContent = name;
     placeContainer.appendChild(placeCard)
 })
 
