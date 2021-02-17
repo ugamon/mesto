@@ -1,0 +1,11 @@
+.place-popup__header {
+    margin-top: 10px;
+    margin-bottom: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    
+    color: #FFFFFF; 
+}

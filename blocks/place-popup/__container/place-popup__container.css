@@ -1,0 +1,16 @@
+.place-popup__container {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+@media all and (max-width: 920px){
+    .place-popup__container {
+        grid-template-columns: 75vw auto;
+    }
+}
+
+@media all and (max-width: 426px){
+    .place-popup__container {
+        grid-template-columns: 240px;
+    }
+}

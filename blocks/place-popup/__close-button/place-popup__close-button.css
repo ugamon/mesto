@@ -1,0 +1,20 @@
+.place-popup__close-button {
+    background-position: center;
+    background-image   : url("../../../images/close-button.svg");
+    width              : 40px;
+    height             : 40px;
+}
+
+.place-popup__close-button:hover {
+    opacity: 0.6;
+}
+
+@media all and (max-width: 427px) {
+    .place-popup__close-button {
+        order        : -1;
+        justify-self : end;
+        margin-bottom: 13.23px;
+        height       : 26px;
+        width        : 26px;
+    }
+}

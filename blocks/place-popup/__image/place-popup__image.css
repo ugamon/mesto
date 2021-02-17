@@ -1,0 +1,12 @@
+.place-popup__image {
+    padding-top: 40px;
+    width: 100%;
+    max-height: 75vh; 
+}
+
+
+@media all and (max-width:427px){
+    .place-popup__image {
+        padding-top: 0;
+    }   
+}
