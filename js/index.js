@@ -173,12 +173,12 @@ const renderPlaces = () => {
 
 const placePopupTemplate = document.querySelector('#place-popup-template').content
 const imagePopup = placePopupTemplate.querySelector('.place-popup');
-imagePopup.querySelector('.place-popup__close-button').addEventListener("click", (e)=> {
+imagePopup.querySelector('.place-popup__close-button').addEventListener("click", (e) => {
     switchPopupOpenClass(imagePopup);
 })
 root.appendChild(imagePopup);
 
-function openPlacePopup(name, link){
+function openPlacePopup(name, link) {
     imagePopup.querySelector('.place-popup__image').src = link;
     imagePopup.querySelector('.place-popup__image').alt = name;
     imagePopup.querySelector('.place-popup__header').textContent = name;
