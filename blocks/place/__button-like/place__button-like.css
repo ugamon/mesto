@@ -10,7 +10,3 @@
   filter: opacity(0.5);
 }
 
-.place__button-like:active {
-  filter: opacity(1) !important;
-  background-image: url("../../../images/like-button-active.svg");
-}

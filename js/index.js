@@ -5,9 +5,61 @@ const placeContainer = root.querySelector('.place-container');
 let jobField = root.querySelector('.profile__profession');
 let nameField = root.querySelector('.profile__name');
 
+
+const saveButton = root.querySelector('.popup__save-button');
+const addButton = root.querySelector('.profile__add-button');
+
+const editPopupElement = root.querySelector('#editPopup');
+const nameInput = editPopupElement.querySelector('input[name=name]');
+const jobInput = editPopupElement.querySelector('input[name=profession]')
+const editPopupCloseButton = editPopupElement.querySelector('.popup__close-button');
+
+const placePopupElement = root.querySelector('#placePopup');
+const placeInput = placePopupElement.querySelector('input[name=place]');
+const linkInput = placePopupElement.querySelector('input[name=link]')
+const placePopupCloseButton = placePopupElement.querySelector('.popup__close-button');
+
+
+const imagePlacePopupElement = root.querySelector('#imagePlacePopup');
+const imageElement = imagePlacePopupElement.querySelector('.place-popup__image');
+const headerElement = imagePlacePopupElement.querySelector('.place-popup__header')
+const closeImagePlacePopup = imagePlacePopupElement.querySelector('.place-popup__close-button')
+
+
+
+
+
 function generateRandomId() {
     return Math.random().toString(36).slice(2)
 }
+
+function fullNodeCopy(parent, selector) {
+    return parent.querySelector(selector).cloneNode(true)
+};
+
+function openPlacePopup(name, link) {
+    imageElement.src = link;
+    imageElement.alt = name;
+    headerElement.textContent = name;
+    switchPopupOpenClass(imagePlacePopupElement);
+
+}
+
+function deletePlace(e) {
+    e.preventDefault();
+    const elementToBeRemoved = document.getElementById(e.target.id).parentElement
+    placeContainer.removeChild(elementToBeRemoved)
+}
+
+const switchPopupOpenClass = (popup_element) => {
+    popup_element.classList.toggle("popup_opened")
+}
+
+closeImagePlacePopup.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchPopupOpenClass(imagePlacePopupElement);
+})
+
 
 let initialCards = [
     {
@@ -49,151 +101,36 @@ let initialCards = [
     }
 ];
 
-const popup_config = [
-    {
-        name: 'editPopup',
-        header: 'Редактировать профиль',
-        inputs:
-            [
-                { name: 'name' },
-                { name: 'profession' }
-            ]
-    },
-    {
-        name: 'placePopup',
-        header: 'Новое место',
-        inputs:
-            [
-                { name: 'place', placeholder: 'Название' },
-                { name: 'link', placeholder: 'Ссылка на картинку' }
-            ]
-    },
-]
 
-function fullNodeCopy(parent, selector) {
-    return parent.querySelector(selector).cloneNode(true)
-};
-
-
-/* ---------------------------------------------------- */
-
-const popupTemplate = document.querySelector('#popup-template').content;
-
-const inputFieldsEditor = (inputfieldsContainer, inputs = []) => {
-    const inputElementsArray = inputfieldsContainer.children;
-
-    for (let i = 0; i < inputElementsArray.length; i++) {
-        if (inputs[i].hasOwnProperty('placeholder')) {
-            inputElementsArray[i].name = inputs[i].name
-            inputElementsArray[i].placeholder = inputs[i].placeholder
-        }
-        else {
-            inputElementsArray[i].name = inputs[i].name
-        }
-    }
-}
-
-
-const createPopup = (configItem) => {
-    const { name, header, inputs } = configItem;
-
-    const popupObject = fullNodeCopy(popupTemplate, '.popup')
-    const inputfieldsContainer = popupObject.querySelector('.popup__form > div');
-
-    popupObject.id = name;
-    popupObject.querySelector('.popup__header').textContent = header
-    inputFieldsEditor(inputfieldsContainer, inputs)
-
-    return popupObject
-}
-
-
-
-const popupGenerator = (config) => {
-    const popupContainer = [];
-    config.map(
-        (configItem) => {
-            popupContainer.push(
-                { name: configItem.name, popupObject: createPopup(configItem) }
-            )
-        }
-    )
-    return popupContainer;
-}
-
-
-const popupsContainer = popupGenerator(popup_config);
-const editPopup = popupsContainer.find((item) => { return item.name === 'editPopup' }).popupObject
-const placePopup = popupsContainer.find((item) => { return item.name === 'placePopup' }).popupObject
-
-root.appendChild(editPopup);
-root.appendChild(placePopup);
-
-
-/* ---------------------------------------------------- */
-
-const saveButton = root.querySelector('.popup__save-button');
-const addButton = root.querySelector('.profile__add-button');
-
-const editPopupCloseButton = editPopup.querySelector('.popup__close-button');
-const placePopupCloseButton = placePopup.querySelector('.popup__close-button');
-
-const editPopupFormElement = editPopup.querySelector('.popup__form');
-let nameInput = editPopupFormElement.querySelector('input[name=name]');
-let jobInput = editPopupFormElement.querySelector('input[name=profession]')
-
-const placePopupFormElement = placePopup.querySelector('.popup__form');
-let placeInput = placePopupFormElement.querySelector('input[name=place]');
-let linkInput = placePopupFormElement.querySelector('input[name=link]')
-
-
-
-
-/* ---------------------------------------------------- */
 
 const placeTemplate = document.querySelector('#place-template').content;
 
-const renderPlaces = () => {
-    placeContainer.innerHTML = '';
-    initialCards.map(
-        ({ link, alt, name, id }) => {
-            const placeCard = fullNodeCopy(placeTemplate, '.place');
-            placeCard.querySelector('.place__image').src = link;
-            placeCard.querySelector('.place__image').alt = alt;
-            placeCard.querySelector('.place__title').textContent = name;
-            placeCard.querySelector('.place__bucket').id = id;
-            placeCard.querySelector('button:not(.place__bucket)').addEventListener("click", (e) => {
-                openPlacePopup(name, link);
-            })
-            placeContainer.appendChild(placeCard)
 
-            placeCard.querySelector('.place__bucket').addEventListener("click", deletePlace);
-        })
-}
 
-const placePopupTemplate = document.querySelector('#place-popup-template').content
-const imagePopup = placePopupTemplate.querySelector('.place-popup');
-imagePopup.querySelector('.place-popup__close-button').addEventListener("click", (e) => {
-    switchPopupOpenClass(imagePopup);
-})
-root.appendChild(imagePopup);
+const getCard = (data) => {
+    const placeCardCopy = fullNodeCopy(placeTemplate, '.place');
 
-function openPlacePopup(name, link) {
-    imagePopup.querySelector('.place-popup__image').src = link;
-    imagePopup.querySelector('.place-popup__image').alt = name;
-    imagePopup.querySelector('.place-popup__header').textContent = name;
-    switchPopupOpenClass(imagePopup);
-
+    const { link, alt, name, id } = data;
+    placeCardCopy.querySelector('.place__image').src = link;
+    placeCardCopy.querySelector('.place__image').alt = alt;
+    placeCardCopy.querySelector('.place__title').textContent = name;
+    placeCardCopy.querySelector('.place__bucket').id = id;
+    placeCardCopy.querySelector('button:not(.place__bucket)').addEventListener("click", (e) => {
+        openPlacePopup(name, link);
+    })
+    placeCardCopy.querySelector('.place__bucket').addEventListener("click", deletePlace);
+    
+    const likeButton = placeCardCopy.querySelector('.place__button-like');
+    likeButton.addEventListener("click", (e) => {
+        likeButton.classList.toggle("place__button-like_active")
+    })
+    
+    return placeCardCopy;
 }
 
 
-
-function deletePlace(e) {
-    e.preventDefault();
-
-    const _index = initialCards.findIndex((item) => { return item.id == e.target.id })
-    initialCards.splice(_index, 1)
-    renderPlaces();
+const renderCard = (data, wrap) => {
+    wrap.prepend(getCard(data))
 }
 
 
@@ -207,13 +144,16 @@ const addPlaceToList = (name, link) => {
         })
 }
 
-renderPlaces(initialCards);
-
-/* ---------------------------------------------------- */
-
-const switchPopupOpenClass = (popup_element) => {
-    popup_element.classList.toggle("popup_opened")
+const renderPlaces = () => {
+    initialCards.map((data) => {
+        renderCard(data, placeContainer);
+    })
 }
+
+
+renderPlaces();
+
+
 
 const openPopup = (e) => {
     e.preventDefault();
@@ -253,18 +193,24 @@ const submitPlaceHandler = (e) => {
     e.preventDefault();
     const name = placeInput.value
     const link = linkInput.value
-    addPlaceToList(name, link)
-    renderPlaces()
-
+    
+    const placeItem = getCard({
+        name: name,
+        link: link,
+        alt: name,
+        id: generateRandomId()
+    })
+    
+    placeContainer.prepend(placeItem)
     switchPopupOpenClass(placePopup)
 }
 
-/* -------------------- delete button -------------------- */
+
 
 
 editButton.addEventListener("click", openPopup);
 addButton.addEventListener("click", openPopup);
 editPopupCloseButton.addEventListener("click", closePopup);
 placePopupCloseButton.addEventListener("click", closePopup)
-editPopupFormElement.addEventListener("submit", submitHandler);
-placePopupFormElement.addEventListener("submit", submitPlaceHandler);
+editPopupElement.addEventListener("submit", submitHandler);
+placePopupElement.addEventListener("submit", submitPlaceHandler);
