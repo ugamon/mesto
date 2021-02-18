@@ -26,42 +26,7 @@ const headerElement = imagePlacePopupElement.querySelector('.place-popup__header
 const closeImagePlacePopup = imagePlacePopupElement.querySelector('.place-popup__close-button')
 
 
-
-
-
-function generateRandomId() {
-    return Math.random().toString(36).slice(2)
-}
-
-function fullNodeCopy(parent, selector) {
-    return parent.querySelector(selector).cloneNode(true)
-};
-
-function openPlacePopup(name, link) {
-    imageElement.src = link;
-    imageElement.alt = name;
-    headerElement.textContent = name;
-    switchPopupOpenClass(imagePlacePopupElement);
-
-}
-
-function deletePlace(e) {
-    e.preventDefault();
-    const elementToBeRemoved = document.getElementById(e.target.id).parentElement
-    placeContainer.removeChild(elementToBeRemoved)
-}
-
-const switchPopupOpenClass = (popup_element) => {
-    popup_element.classList.toggle("popup_opened")
-}
-
-closeImagePlacePopup.addEventListener('click', (e) => {
-    e.preventDefault();
-    switchPopupOpenClass(imagePlacePopupElement);
-})
-
-
-let initialCards = [
+const initialCards = [
     {
 
         name: 'Архыз',
@@ -103,55 +68,25 @@ let initialCards = [
 
 
 
-const placeTemplate = document.querySelector('#place-template').content;
+/* -------------------------------- utils -------------------------------- */
 
-
-
-const getCard = (data) => {
-    const placeCardCopy = fullNodeCopy(placeTemplate, '.place');
-
-    const { link, alt, name, id } = data;
-    placeCardCopy.querySelector('.place__image').src = link;
-    placeCardCopy.querySelector('.place__image').alt = alt;
-    placeCardCopy.querySelector('.place__title').textContent = name;
-    placeCardCopy.querySelector('.place__bucket').id = id;
-    placeCardCopy.querySelector('button:not(.place__bucket)').addEventListener("click", (e) => {
-        openPlacePopup(name, link);
-    })
-    placeCardCopy.querySelector('.place__bucket').addEventListener("click", deletePlace);
-    
-    const likeButton = placeCardCopy.querySelector('.place__button-like');
-    likeButton.addEventListener("click", (e) => {
-        likeButton.classList.toggle("place__button-like_active")
-    })
-    
-    return placeCardCopy;
+function generateRandomId() {
+    return Math.random().toString(36).slice(2)
 }
 
+function fullNodeCopy(parent, selector) {
+    return parent.querySelector(selector).cloneNode(true)
+};
 
-const renderCard = (data, wrap) => {
-    wrap.prepend(getCard(data))
+/* -------------------------------- popups functions -----------------*/
+
+function openPlacePopup(name, link) {
+    imageElement.src = link;
+    imageElement.alt = name;
+    headerElement.textContent = name;
+    switchPopupOpenClass(imagePlacePopupElement);
+
 }
-
-
-const addPlaceToList = (name, link) => {
-    initialCards.unshift(
-        {
-            name: name,
-            link: link,
-            alt: name,
-            id: generateRandomId()
-        })
-}
-
-const renderPlaces = () => {
-    initialCards.map((data) => {
-        renderCard(data, placeContainer);
-    })
-}
-
-
-renderPlaces();
 
 
 
@@ -182,6 +117,12 @@ const closePopup = (e) => {
     }
 }
 
+
+const switchPopupOpenClass = (popup_element) => {
+    popup_element.classList.toggle("popup_opened")
+}
+
+
 const submitHandler = (e) => {
     e.preventDefault();
     nameField.textContent = nameInput.value;
@@ -193,20 +134,78 @@ const submitPlaceHandler = (e) => {
     e.preventDefault();
     const name = placeInput.value
     const link = linkInput.value
-    
+
     const placeItem = getCard({
         name: name,
         link: link,
         alt: name,
         id: generateRandomId()
     })
-    
+
     placeContainer.prepend(placeItem)
     switchPopupOpenClass(placePopup)
 }
 
 
 
+/* ------------------------------ form card ------------------------------ */
+
+const placeTemplate = document.querySelector('#place-template').content;
+
+function deletePlace(e) {
+    e.preventDefault();
+    const elementToBeRemoved = document.getElementById(e.target.id).parentElement
+    placeContainer.removeChild(elementToBeRemoved)
+}
+
+
+const getCard = (data) => {
+    const placeCardCopy = fullNodeCopy(placeTemplate, '.place');
+
+    const { link, alt, name, id } = data;
+    placeCardCopy.querySelector('.place__image').src = link;
+    placeCardCopy.querySelector('.place__image').alt = alt;
+    placeCardCopy.querySelector('.place__title').textContent = name;
+    placeCardCopy.querySelector('.place__bucket').id = id;
+    placeCardCopy.querySelector('button:not(.place__bucket)').addEventListener("click", (e) => {
+        openPlacePopup(name, link);
+    })
+    placeCardCopy.querySelector('.place__bucket').addEventListener("click", deletePlace);
+
+    const likeButton = placeCardCopy.querySelector('.place__button-like');
+    likeButton.addEventListener("click", (e) => {
+        likeButton.classList.toggle("place__button-like_active")
+    })
+
+    return placeCardCopy;
+}
+
+
+const renderCard = (data, wrap) => {
+    wrap.prepend(getCard(data))
+}
+
+
+const addPlaceToList = (name, link) => {
+    initialCards.unshift(
+        {
+            name: name,
+            link: link,
+            alt: name,
+            id: generateRandomId()
+        })
+}
+
+const renderPlaces = () => {
+    initialCards.map((data) => {
+        renderCard(data, placeContainer);
+    })
+}
+
+
+renderPlaces();
+
+/* ------------------------------ event listeners ------------------------------ */
 
 editButton.addEventListener("click", openPopup);
 addButton.addEventListener("click", openPopup);
@@ -214,3 +213,8 @@ editPopupCloseButton.addEventListener("click", closePopup);
 placePopupCloseButton.addEventListener("click", closePopup)
 editPopupElement.addEventListener("submit", submitHandler);
 placePopupElement.addEventListener("submit", submitPlaceHandler);
+
+closeImagePlacePopup.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchPopupOpenClass(imagePlacePopupElement);
+})
