@@ -30,33 +30,30 @@ function fullNodeCopy(parent, selector) {
     return parent.querySelector(selector).cloneNode(true)
 };
 
-const openPopup = (popup) => {
-    popup.classList.add("popup_opened")
+function openPopup(popupElement){
+    popupElement.classList.add("popup_opened")
 }
 
-const closePopup = (popup) => {
-    popup.classList.remove("popup_opened")
+function closePopup(popupElement){
+    popupElement.classList.remove("popup_opened")
 }
 
-
-const handleProfileSubmit = (e) => {
+function handleProfileSubmit(e){
     e.preventDefault();
     nameField.textContent = nameInput.value;
     jobField.textContent = jobInput.value;
     closePopup(editPopup);
 }
 
-const handleCardSubmit = (e) => {
+function handleCardSubmit(e){
     e.preventDefault();
     const name = placeInput.value
     const link = linkInput.value
 
-    renderCard(
-        {
+    renderCard({
             name: name,
-            link: link,
-
-        }, placeContainer
+            link: link}
+            , placeContainer
     )
 
     placeInput.value = ''
@@ -78,8 +75,9 @@ function handleImagePopupOpen(data) {
     openPopup(imagePopup);
 }
 
-
-const handleLikeIcon = (likeIconElement) => likeIconElement.classList.toggle("place__button-like_active")
+function handleLikeIcon(likeIconElement) {
+    likeIconElement.classList.toggle("place__button-like_active")
+} 
 
 const getCard = (data) => {
     const placeCardCopy = fullNodeCopy(cardTemplate, '.place');
@@ -112,25 +110,17 @@ const renderPlaces = () => {
     })
 }
 
-
-renderPlaces();
-
-/* ------------------------------ event listeners ------------------------------ */
-
 editButton.addEventListener("click", (e) => {
     nameInput.value = nameField.textContent;
     jobInput.value = jobField.textContent;
     openPopup(profilePopup)
 });
+
 editPopupCloseButton.addEventListener("click", (e) => closePopup(profilePopup));
-profilePopup.addEventListener("submit", handleProfileSubmit
-
-);
-
+profilePopup.addEventListener("submit", handleProfileSubmit);
 addButton.addEventListener("click", (e) => openPopup(cardPopup));
 placePopupCloseButton.addEventListener("click", (e) => closePopup(cardPopup));
-
-cardPopup.addEventListener("submit", handleCardSubmit
-
-);
+cardPopup.addEventListener("submit", handleCardSubmit);
 closeImagePlacePopup.addEventListener('click', (e) => closePopup(imagePopup))
+
+renderPlaces();
