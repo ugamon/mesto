@@ -20,9 +20,9 @@ const placePopupCloseButton = cardPopup.querySelector('.popup__close-button');
 
 
 const imagePopup = root.querySelector('#imagePlacePopup');
-const imageElement = imagePopup.querySelector('.place-popup__image');
-const headerElement = imagePopup.querySelector('.place-popup__header');
-const closeImagePlacePopup = imagePopup.querySelector('.place-popup__close-button');
+const imageElement = imagePopup.querySelector('.popup__image');
+const headerElement = imagePopup.querySelector('.popup__header');
+const closeImagePlacePopup = imagePopup.querySelector('.popup__close-button');
 
 const cardTemplate = document.querySelector('#place-template').content;
 
@@ -32,19 +32,20 @@ function fullNodeCopy(parent, selector) {
 }
 
 function handleEscapeKeydown(e) {
-    if ((e.key === "Escape") && (e.target.classList.contains('popup_opened'))) {
-        closePopup(e.target)
+    if (e.key === "Escape"){
+        const popupOpened = document.querySelector('.popup_opened');
+        closePopup(popupOpened);
     }
 }
 
 function openPopup(popupElement) {
     popupElement.classList.add("popup_opened");
-    popupElement.addEventListener("keydown", handleEscapeKeydown);
+    document.addEventListener("keydown", handleEscapeKeydown);
 }
 
 function closePopup(popupElement) {
     popupElement.classList.remove("popup_opened");
-    popupElement.removeEventListener("keydown", handleEscapeKeydown);
+    document.removeEventListener("keydown", handleEscapeKeydown);
 }
 
 function handleProfileSubmit(e) {
@@ -135,24 +136,6 @@ cardPopup.addEventListener("submit", handleCardSubmit);
 closeImagePlacePopup.addEventListener('click', (e) => closePopup(imagePopup));
 
 
-const profileSettings = {
-    formSelector: '#editPopup',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save-button',
-    inactiveButtonClass: 'popup__save-button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error'
-};
-
-const placeSettings = {
-    formSelector: '#placePopup',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save-button',
-    inactiveButtonClass: 'popup__save-button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error'
-};
-
 const overlayClose = (e, popup) => {
     if (e.target.classList.contains('popup_opened')) {
         closePopup(popup);
@@ -160,11 +143,6 @@ const overlayClose = (e, popup) => {
 };
 
 
-nameInput.addEventListener("input", (e) => enableValidation(profileSettings));
-jobInput.addEventListener("input", (e) => enableValidation(profileSettings));
-
-placeInput.addEventListener("input", (e) => enableValidation(placeSettings));
-linkInput.addEventListener("input", (e) => enableValidation(placeSettings));
 profilePopup.addEventListener("click", (e) => overlayClose(e, profilePopup));
 imagePopup.addEventListener("click", (e) => overlayClose(e, imagePopup));
 cardPopup.addEventListener("click", (e) => overlayClose(e, cardPopup));

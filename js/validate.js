@@ -3,34 +3,39 @@ const enableValidation = (settings) => {
     const formList = Array.from(document.querySelectorAll(settings.formSelector));
 
     formList.forEach((formElement) => {
-        formElement.addEventListener('submit', (e) => {
-            e.preventDefault();
-        });
+        if (formElement.id !== 'imagePlacePopup') {
+            formElement.addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
 
-        setEventListeners(settings);
+            setEventListeners(formElement, settings);
+        }
     });
 };
 
 
-const setEventListeners = (settings) => {
-    const {formSelector, inputSelector, submitButtonSelector, inactiveButtonClass} = settings;
-    const formElement = document.querySelector(formSelector);
+const setEventListeners = (formElement, settings) => {
+    const {inputSelector, submitButtonSelector, inactiveButtonClass} = settings;
+
 
     const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+    const buttonElement = formElement.querySelector(submitButtonSelector);
 
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', (e) => {
             e.preventDefault();
             isValid(formElement, inputElement, settings)
+            toggleButtonState(inputList, buttonElement, inactiveButtonClass)
         });
     });
 
-    const buttonElement = formElement.querySelector(submitButtonSelector);
-    toggleButtonState(inputList, buttonElement, inactiveButtonClass)
+
 };
 
 
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
+    inputList.length > 0 ? true : console.log('Check the formList variable, inputList is empty')
+
     if (hasInvalidInput(inputList)) {
 
         buttonElement.classList.add(inactiveButtonClass);
@@ -79,4 +84,14 @@ function hideInputError(inputElement, errorFormElement, settings) {
 }
 
 
+const config = {
+    formSelector: '.popup',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error'
+};
 
+
+enableValidation(config);

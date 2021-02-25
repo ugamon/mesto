@@ -1,6 +1,5 @@
-.place-popup__header {
-    margin-top: 10px;
-    margin-bottom: 0;
+.popup__header_type_preview{
+    margin: 10px 0 0 0;
 
     font-family: 'Inter', sans-serif;
     font-weight: normal;

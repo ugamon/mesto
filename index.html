@@ -35,45 +35,45 @@
         </p>
     </footer>
 
-    <div class="place-popup" id="imagePlacePopup" tabindex="-1">
-        <div class="place-popup__container">
-            <img class="place-popup__image" alt="Архыз"
+    <div class="popup" id="imagePlacePopup" tabindex="-1">
+        <div class="popup__container popup__container_type_preview">
+            <img class="popup__image" alt="Архыз"
                 src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg">
-            <button type="button" class="button place-popup__close-button"></button>
-            <h2 class="place-popup__header"></h2>
+            <button type="button" class="button popup__close-button"></button>
+            <h2 class="popup__header popup__header_type_preview"></h2>
         </div>
     </div>
     <div class="popup" id="editPopup" tabindex="-1">
         <div class="popup__container">
-            <button type="button" class="button popup__close-button"></button>
             <form class="popup__form" name="popup-form" novalidate>
                 <h2 class="popup__header">Редактировать профиль</h2>
                 <div>
                     <input id="name-input" type="text" name="name" class="popup__input " minlength="2" maxlength="40"
-                        required>
+                    required>
                     <span class="name-input-error"></span>
                     <input id="job-input" type="text" name="profession" class="popup__input" minlength="2"
-                        maxlength="200" required>
+                    maxlength="200" required>
                     <span class="job-input-error"></span>
                 </div>
                 <input type="submit" class="button popup__save-button" value="Сохранить">
             </form>
+            <button type="button" class="button popup__close-button"></button>
         </div>
     </div>
     <div class="popup" id="placePopup" tabindex="-1">
         <div class="popup__container">
-            <button type="button" class="button popup__close-button"></button>
             <form class="popup__form" name="popup-form" novalidate>
                 <h2 class="popup__header">Новое место</h2>
                 <div>
                     <input id="place-input" type="text" name="place" placeholder="Название" class="popup__input" minlength="2"
-                        maxlength="30" required>
+                    maxlength="30" required>
                     <span class="place-input-error"></span>
                     <input id="link-input" type="url" name="link" placeholder="Ссылка на картинку" class="popup__input" required>
                     <span class="link-input-error"></span>
                 </div>
                 <input type="submit" class="button popup__save-button" value="Сохранить">
             </form>
+            <button type="button" class="button popup__close-button"></button>
         </div>
     </div>
     <template id="place-template">

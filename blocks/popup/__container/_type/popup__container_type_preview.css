@@ -1,16 +1,16 @@
-.place-popup__container {
+.popup__container_type_preview {
     display: grid;
     grid-template-columns: auto auto;
 }
 
 @media all and (max-width: 920px){
-    .place-popup__container {
+    .popup__container_type_preview {
         grid-template-columns: 75vw auto;
     }
 }
 
 @media all and (max-width: 426px){
-    .place-popup__container {
+    .popup__container_type_preview {
         grid-template-columns: 240px;
     }
 }
