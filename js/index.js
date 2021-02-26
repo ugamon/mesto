@@ -11,20 +11,14 @@ const addButton = root.querySelector('.profile__add-button');
 const profilePopup = root.querySelector('#editPopup');
 const nameInput = profilePopup.querySelector('input[name=name]');
 const jobInput = profilePopup.querySelector('input[name=profession]');
-const editPopupCloseButton = profilePopup.querySelector('.popup__close-button');
-
 const cardPopup = root.querySelector('#placePopup');
 const placeInput = cardPopup.querySelector('input[name=place]');
 const linkInput = cardPopup.querySelector('input[name=link]');
-const placePopupCloseButton = cardPopup.querySelector('.popup__close-button');
-
-
 const imagePopup = root.querySelector('#imagePlacePopup');
 const imageElement = imagePopup.querySelector('.popup__image');
 const headerElement = imagePopup.querySelector('.popup__header');
-const closeImagePlacePopup = imagePopup.querySelector('.popup__close-button');
-
 const cardTemplate = document.querySelector('#place-template').content;
+const popups = document.querySelectorAll('.popup');
 
 
 function fullNodeCopy(parent, selector) {
@@ -127,25 +121,29 @@ editButton.addEventListener("click", (e) => {
     openPopup(profilePopup)
 });
 
-editPopupCloseButton.addEventListener("click", (e) => closePopup(profilePopup));
 profilePopup.addEventListener("submit", handleProfileSubmit);
 addButton.addEventListener("click", (e) => openPopup(cardPopup));
-placePopupCloseButton.addEventListener("click", (e) => closePopup(cardPopup));
 cardPopup.addEventListener("submit", handleCardSubmit);
-closeImagePlacePopup.addEventListener('click', (e) => closePopup(imagePopup));
 
 
-const overlayClose = (e, popup) => {
-    if (e.target.classList.contains('popup_opened')) {
-        closePopup(popup);
-    }
-};
 
 
-profilePopup.addEventListener("click", (e) => overlayClose(e, profilePopup));
-imagePopup.addEventListener("click", (e) => overlayClose(e, imagePopup));
-cardPopup.addEventListener("click", (e) => overlayClose(e, cardPopup));
+function handleClose() {
+    popups.forEach((popup) => {
+        popup.addEventListener('click', (e)=> {
+            if(e.target.classList.contains('popup_opened')){
+                closePopup(popup)
+            }
+            if(e.target.classList.contains('popup__close-button')){
+                closePopup(popup)
+            }
+        })
+    })
+}
 
+//Спасибо! Подсказка просто космос. =) Теперь код стал намного проще
+
+handleClose();
 renderPlaces();
 
 
