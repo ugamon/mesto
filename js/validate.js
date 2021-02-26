@@ -3,14 +3,13 @@ const enableValidation = (settings) => {
     const formList = Array.from(document.querySelectorAll(settings.formSelector));
 
     formList.forEach((formElement) => {
-        if (formElement.id !== 'imagePlacePopup') {
-            formElement.addEventListener('submit', (e) => {
-                e.preventDefault();
-            });
+        formElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
 
-            setEventListeners(formElement, settings);
-        }
+        setEventListeners(formElement, settings);
     });
+
 };
 
 
@@ -85,7 +84,7 @@ function hideInputError(inputElement, errorFormElement, settings) {
 
 
 const config = {
-    formSelector: '.popup',
+    formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save-button',
     inactiveButtonClass: 'popup__save-button_disabled',

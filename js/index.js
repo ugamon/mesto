@@ -78,8 +78,7 @@ function handleCardDelete(e) {
     e.target.closest('.place').remove()
 }
 
-function handleImagePopupOpen(data) {
-    const {link, name} = data;
+function handleImagePopupOpen({link, name}) {
     imageElement.src = link;
     imageElement.alt = name;
     headerElement.textContent = name;
