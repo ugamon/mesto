@@ -1,29 +1,64 @@
+import {Card} from './Card.js'
+import {FormValidator} from './FormValidator.js'
+
 const root = document.querySelector('.root');
 const editButton = root.querySelector('.profile__edit-button');
 const placeContainer = root.querySelector('.place-container');
-
 const jobField = root.querySelector('.profile__profession');
 const nameField = root.querySelector('.profile__name');
-
-
 const addButton = root.querySelector('.profile__add-button');
-
 const profilePopup = root.querySelector('#editPopup');
 const nameInput = profilePopup.querySelector('input[name=name]');
 const jobInput = profilePopup.querySelector('input[name=profession]');
 const cardPopup = root.querySelector('#placePopup');
 const placeInput = cardPopup.querySelector('input[name=place]');
 const linkInput = cardPopup.querySelector('input[name=link]');
-const imagePopup = root.querySelector('#imagePlacePopup');
-const imageElement = imagePopup.querySelector('.popup__image');
-const headerElement = imagePopup.querySelector('.popup__header');
+
+
+const config = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error'
+};
+
+const initialCards = [
+    {
+
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+    }
+];
+
+
+
 const cardTemplate = document.querySelector('#place-template').content;
 const popups = document.querySelectorAll('.popup');
 
-
-function fullNodeCopy(parent, selector) {
-    return parent.querySelector(selector).cloneNode(true)
-}
 
 function handleEscapeKeydown(e) {
     if (e.key === "Escape"){
@@ -67,46 +102,9 @@ function handleCardSubmit(e) {
     closePopup(placePopup)
 }
 
-function handleCardDelete(e) {
-    e.preventDefault();
-    e.target.closest('.place').remove()
-}
-
-function handleImagePopupOpen({link, name}) {
-    imageElement.src = link;
-    imageElement.alt = name;
-    headerElement.textContent = name;
-    openPopup(imagePopup);
-}
-
-function handleLikeIcon(likeIconElement) {
-    likeIconElement.classList.toggle("place__button-like_active")
-}
-
-
-const getCard = (data) => {
-    const placeCardCopy = fullNodeCopy(cardTemplate, '.place');
-
-    const likeIcon = placeCardCopy.querySelector('.place__button-like');
-    const deleteButton = placeCardCopy.querySelector('.place__bucket');
-    const image = placeCardCopy.querySelector('.place__image');
-    const previewButton = placeCardCopy.querySelector('button:not(.place__bucket)');
-    const desciption = placeCardCopy.querySelector('.place__title');
-
-    image.src = data.link;
-    image.alt = data.name;
-    desciption.textContent = data.name;
-
-    likeIcon.addEventListener("click", (e) => handleLikeIcon(likeIcon));
-    deleteButton.addEventListener("click", handleCardDelete);
-    previewButton.addEventListener("click", (e) => handleImagePopupOpen(data));
-
-    return placeCardCopy;
-};
-
 
 const renderCard = (data, wrap) => {
-    wrap.prepend(getCard(data))
+    wrap.prepend(new Card(data, cardTemplate, openPopup).render())
 };
 
 const renderPlaces = () => {
@@ -120,12 +118,6 @@ editButton.addEventListener("click", (e) => {
     jobInput.value = jobField.textContent;
     openPopup(profilePopup)
 });
-
-profilePopup.addEventListener("submit", handleProfileSubmit);
-addButton.addEventListener("click", (e) => openPopup(cardPopup));
-cardPopup.addEventListener("submit", handleCardSubmit);
-
-
 
 
 function handleClose() {
@@ -141,10 +133,19 @@ function handleClose() {
     })
 }
 
-//Спасибо! Подсказка просто космос. =) Теперь код стал намного проще
+profilePopup.addEventListener("submit", handleProfileSubmit);
+addButton.addEventListener("click", (e) => openPopup(cardPopup));
+cardPopup.addEventListener("submit", handleCardSubmit);
+
 
 handleClose();
 renderPlaces();
+
+const formList = Array.from(document.querySelectorAll(config.formSelector));
+formList.forEach((formElement) => {
+    new FormValidator(config, formElement).enableValidation()
+});
+
 
 
 
