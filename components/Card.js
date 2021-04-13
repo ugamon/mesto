@@ -1,8 +1,11 @@
+import {PopupWithImage} from "./Popup.js";
+
+
 export class Card {
-    constructor(data, cardSelector, openPopupFunction){
+    constructor(data, cardSelector){
         this._data = data;
         this._cardSelector = cardSelector;
-        this._openPopup = openPopupFunction;
+        this._ImagePopup = new PopupWithImage('#imagePlacePopup')
     }
     
     _copyTemplate(){
@@ -39,14 +42,9 @@ export class Card {
     }
 
     _handleImagePopupOpen(e){
-        const imagePopup = document.querySelector('#imagePlacePopup');
-        const imageElement = imagePopup.querySelector('.popup__image');
-        const headerElement = imagePopup.querySelector('.popup__header');
-        
-        imageElement.src = this._data.link;
-        imageElement.alt = this._data.name;
-        headerElement.textContent = this._data.name;
-        this._openPopup(imagePopup);
+
+        this._ImagePopup.open(this._data)
+
     }
     
     _addEventListeners(){
