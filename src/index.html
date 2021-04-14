@@ -4,17 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./pages/index.css" rel="stylesheet">
     <title>Mesto</title>
 </head>
-
 <body class="root">
     <header class="header root__header">
-        <img class="header__logo" src="./images/logo.svg" alt="Место, логотип">
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Место, логотип">
     </header>
     <main>
         <section class="profile root__profile">
-            <img class="profile__avatar" src="./images/image.jpg" alt="Жак-Ив Кусто">
+            <img class="profile__avatar" src="<%=require('./images/image.jpg')%>" alt="Жак-Ив Кусто">
             <div class="profile__info-block">
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -48,10 +46,10 @@
             <form class="popup__form" name="popup-form" novalidate>
                 <h2 class="popup__header">Редактировать профиль</h2>
                 <div>
-                    <input id="name-input" type="text" name="name" class="popup__input " minlength="2" maxlength="40"
+                    <input id="name-input" type="text" name="name" class="popup__input " minlength="2" maxlength="40" placeholder="Введите имя"
                     required>
                     <span class="name-input-error"></span>
-                    <input id="job-input" type="text" name="profession" class="popup__input" minlength="2"
+                    <input id="job-input" type="text" name="profession" class="popup__input" minlength="2" placeholder="Ваша профессия"
                     maxlength="200" required>
                     <span class="job-input-error"></span>
                 </div>
@@ -90,11 +88,5 @@
         </div>
 
     </template>
-    <script type="module" src="./utils/constants.js"></script>
-    <script type="module" src="./components/Section.js"></script>
-    <script type="module" src="./components/Popup.js"></script>
-    <script type="module" src="./components/Card.js"></script>
-    <script type="module" src="./components/FormValidator.js"></script>
-    <script type="module" src="./pages/index.js"></script>
 </body>
 </html>

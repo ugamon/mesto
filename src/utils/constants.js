@@ -2,8 +2,6 @@
 export const root = document.querySelector('.root');
 export const editButton = root.querySelector('.profile__edit-button');
 export const placeContainer = '.place-container';
-export const jobField = root.querySelector('.profile__profession');
-export const nameField = root.querySelector('.profile__name');
 export const addButton = root.querySelector('.profile__add-button');
 export const profilePopup = root.querySelector('#editPopup');
 export const nameInput = profilePopup.querySelector('input[name=name]');

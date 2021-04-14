@@ -42,15 +42,14 @@ export class Card {
     }
 
     _handleImagePopupOpen(e){
-
         this._ImagePopup.open(this._data)
-
     }
     
     _addEventListeners(){
         this._likeIcon.addEventListener('click', (e) => this._handleLikeIcon(e));
         this.deleteButton.addEventListener('click',(e) => this._handleCardDelete(e));
         this.previewButton.addEventListener('click', (e) => this._handleImagePopupOpen(e));
+        this._ImagePopup.setEventListeners();
     }
 
 

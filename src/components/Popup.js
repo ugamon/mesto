@@ -1,3 +1,5 @@
+import UserInfo from './UserInfo.js';
+
 class Popup {
     constructor(selector) {
         this.popupElement = document.querySelector(selector);
@@ -9,7 +11,6 @@ class Popup {
 
     close() {
         this.popupElement.classList.remove("popup_opened");
-        // this._removeEventListeners();
     }
 
     _handleEscClose(e) {
@@ -57,49 +58,59 @@ export class PopupWithForm extends Popup {
     constructor(selector, submitCallBack) {
         super(selector);
         this._submitCallBack = submitCallBack;
-        this.attributes = {};
-
+        this._attributes = {};
+        this._inputslist = this.popupElement.querySelectorAll('.popup__input');
     }
 
     _getInputValues() {
-        const _inputs = this.popupElement.querySelectorAll('.popup__input');
-        _inputs.forEach((node) => {
-            this.attributes[node.getAttribute('name')] = node.value;
+        this._inputslist.forEach((node) => {
+            this._attributes[node.getAttribute('name')] = node.value;
         });
     }
 
-    open() {
-        this.popupElement.classList.add("popup_opened");
-
+    _clearInputValues(){
+        this._inputslist.forEach((node) => {
+            node.value = '';
+        });
     }
 
     _handleCardSubmit(e) {
         e.preventDefault();
         this._getInputValues();
-        this._submitCallBack(this.attributes);
-        this.popupElement.removeEventListener("submit", this._handleCardSubmit);
+        this._submitCallBack(this._attributes);
         this.close()
     }
 
+    setUserInfo(){
+        const {name, profession} = new UserInfo('.profile__name', '.profile__profession').getUserInfo();
+        this._inputslist.forEach((node) => {
+            if(node.name === 'name'){
+                node.value = name;
+            }
+            else{
+                node.value = profession;
+            }
+        })
+    }
+
     _removeEventListeners() {
-        // super._removeEventListeners();
         this.popupElement.removeEventListener("submit", this._handleCardSubmit.bind(this))
     }
 
     setEventListeners() {
-        // super.setEventListeners('keydown');
+        super.setEventListeners();
         this.popupElement.addEventListener("submit", this._handleCardSubmit.bind(this));
     }
 
 
-    close() {
-        // const _inputs = this.popupElement.querySelectorAll('.popup__input');
-        // _inputs.forEach((input)=> {
-        //     input.setAttribute('value', '');
-        // });
-        // this._removeEventListeners();
-        super.close()
+    open() {
+        this.popupElement.classList.add("popup_opened");
+    }
 
+    close() {
+        this._clearInputValues();
+        this._removeEventListeners();
+        super.close()
     }
 }
 
