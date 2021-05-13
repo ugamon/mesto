@@ -29,7 +29,7 @@ const renderPlaces = new Section(
 
 renderPlaces.renderItems();
 
-const CardPopup = new PopupWithForm("#placePopup", (data) => {
+const cardPopup = new PopupWithForm("#placePopup", (data) => {
   renderPlaces.addItem(new Card(data, cardTemplate).render());
 });
 
@@ -37,7 +37,7 @@ CardPopup.setEventListeners();
 
 const userInfo = new UserInfo(".profile__name", ".profile__profession");
 
-const ProfilePopup = new PopupWithForm("#editPopup", (data) => {
+const profilePopup = new PopupWithForm("#editPopup", (data) => {
   const { name, profession } = data;
   userInfo.setUserInfo(name, profession);
 });

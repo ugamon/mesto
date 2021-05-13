@@ -6,7 +6,7 @@ export class Card {
   constructor(data, cardSelector) {
     this._data = data;
     this._cardSelector = cardSelector;
-    this._ImagePopup = new PopupWithImage("#imagePlacePopup");
+    this._ImagePopup = imagePopup;
   }
 
   _copyTemplate() {
