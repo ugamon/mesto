@@ -12,6 +12,7 @@ class Popup {
 
   close() {
     this.popupElement.classList.remove("popup_opened");
+    this._removeEventListeners();
   }
 
   _handleEscClose(e) {
@@ -111,7 +112,6 @@ export class PopupWithForm extends Popup {
 
   close() {
     this._clearInputValues();
-    this._removeEventListeners();
     super.close();
   }
 }

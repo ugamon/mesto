@@ -6,7 +6,7 @@ export class Card {
   constructor(data, cardSelector) {
     this._data = data;
     this._cardSelector = cardSelector;
-    this._ImagePopup = imagePopup;
+    this._imagePopup = imagePopup;
   }
 
   _copyTemplate() {
@@ -44,7 +44,7 @@ export class Card {
   }
 
   _handleImagePopupOpen(e) {
-    this._ImagePopup.open(this._data);
+    this._imagePopup.open(this._data);
   }
 
   _addEventListeners() {
@@ -55,7 +55,7 @@ export class Card {
     this.previewButton.addEventListener("click", (e) =>
       this._handleImagePopupOpen(e)
     );
-    this._ImagePopup.setEventListeners();
+    this._imagePopup.setEventListeners();
   }
 
   render() {

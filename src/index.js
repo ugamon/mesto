@@ -33,7 +33,7 @@ const cardPopup = new PopupWithForm("#placePopup", (data) => {
   renderPlaces.addItem(new Card(data, cardTemplate).render());
 });
 
-CardPopup.setEventListeners();
+cardPopup.setEventListeners();
 
 const userInfo = new UserInfo(".profile__name", ".profile__profession");
 
@@ -42,18 +42,18 @@ const profilePopup = new PopupWithForm("#editPopup", (data) => {
   userInfo.setUserInfo(name, profession);
 });
 
-ProfilePopup.setEventListeners();
+profilePopup.setEventListeners();
 
-addButton.addEventListener("click", (e) => CardPopup.open());
+addButton.addEventListener("click", (e) => cardPopup.open());
 
 editButton.addEventListener("click", (e) => {
-  ProfilePopup.open();
+  profilePopup.open();
   const { name, profession } = new UserInfo(
     ".profile__name",
     ".profile__profession"
   ).getUserInfo();
 
-  ProfilePopup.setUserInfo(name, profession);
+  profilePopup.setUserInfo(name, profession);
 });
 
 const formList = Array.from(document.querySelectorAll(config.formSelector));
