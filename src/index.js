@@ -48,11 +48,7 @@ addButton.addEventListener("click", (e) => cardPopup.open());
 
 editButton.addEventListener("click", (e) => {
   profilePopup.open();
-  const { name, profession } = new UserInfo(
-    ".profile__name",
-    ".profile__profession"
-  ).getUserInfo();
-
+  const { name, profession } = userInfo.getUserInfo();
   profilePopup.setUserInfo(name, profession);
 });
 
