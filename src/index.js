@@ -3,13 +3,13 @@ import { FormValidator } from "./components/FormValidator.js";
 import Section from "./components/Section.js";
 import { PopupWithForm } from "./components/Popup.js";
 import UserInfo from "./components/UserInfo.js";
+import Api from "./components/Api.js";
 
 import {
   addButton,
   cardTemplate,
   config,
   editButton,
-  initialCards,
   placeContainer,
 } from "./utils/constants.js";
 
@@ -17,17 +17,30 @@ import "./images/logo.svg";
 import "./images/image.jpg";
 import "./pages/index.css";
 
-const renderPlaces = new Section(
-  {
-    items: initialCards,
-    renderer: (data) => {
-      return new Card(data, cardTemplate).render();
-    },
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-24",
+  headers: {
+    authorization: "41b03801-bc4d-4d5f-8372-684b2b7fdbc5",
+    "Content-Type": "application/json",
   },
-  placeContainer
-);
+});
 
-renderPlaces.renderItems();
+api
+  .getCardList()
+  .then((cards) => {
+    const renderPlaces = new Section(
+      {
+        items: cards,
+        renderer: (data) => {
+          return new Card(data, cardTemplate).render();
+        },
+      },
+      placeContainer
+    );
+
+    renderPlaces.renderItems();
+  })
+  .catch((err) => console.log(err));
 
 const cardPopup = new PopupWithForm("#placePopup", (data) => {
   renderPlaces.addItem(new Card(data, cardTemplate).render());
@@ -36,6 +49,9 @@ const cardPopup = new PopupWithForm("#placePopup", (data) => {
 cardPopup.setEventListeners();
 
 const userInfo = new UserInfo(".profile__name", ".profile__profession");
+api.getUserInfo().then((user) => {
+  userInfo.setUserInfo(user.name, user.about);
+});
 
 const profilePopup = new PopupWithForm("#editPopup", (data) => {
   const { name, profession } = data;
