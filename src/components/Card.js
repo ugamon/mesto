@@ -28,7 +28,8 @@ export class Card {
   }
 
   _fillLayout() {
-    const { link, name } = this._data;
+    const { link, name, likes } = this._data;
+    console.log(likes.length);
     this.image.src = link;
     this.image.alt = name;
     this.desciption.textContent = name;

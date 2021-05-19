@@ -6,25 +6,83 @@ export default class Api {
     this._options = options;
   }
 
-  _requestGet(urlPath, method) {
-    const { baseUrl, headers } = this._options;
-    return fetch(`${baseUrl}/${urlPath}`, {
-      method: method,
-      headers: headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-    });
+  _requestOptions(urlPath, method) {
+    this._apiUrl = `${this._options.baseUrl}/${urlPath}`;
+    this._headers = this._options.headers;
+    this._method = method;
+  }
+
+  _postReq(urlPath, method, body) {
+    this._requestOptions(urlPath, method);
+
+    return fetch(this._apiUrl, {
+      method: this._method,
+      headers: this._headers,
+      body: JSON.stringify(body),
+    }).then((res) => this._requestWrapper(res, successCallback, errorCallback));
+  }
+
+  _getReq(urlPath, method, successCallback, errorCallback) {
+    this._requestOptions(urlPath, method);
+    return fetch(this._apiUrl, {
+      method: this._method,
+      headers: this._headers,
+    }).then((res) => this._requestWrapper(res, successCallback, errorCallback));
+  }
+
+  _requestWrapper(res, successCallback, errorCallback) {
+    if (res.ok) {
+      return successCallback(res);
+    } else {
+      return errorCallback(res);
+    }
+  }
+
+  _successHandler(res) {
+    //console.log(res.json());
+    return res.json();
+  }
+
+  _errorHandler(err) {
+    console.log(err);
+    return Promise.reject(`Error: ${err.status}`);
   }
 
   getUserInfo() {
-    return this._requestGet("users/me", "GET");
+    return this._getReq(
+      "users/me",
+      "GET",
+      this._successHandler,
+      this._errorHandler
+    );
   }
 
   getCardList() {
-    return this._requestGet("cards", "GET");
+    return this._getReq(
+      "cards",
+      "GET",
+      this._successHandler,
+      this._errorHandler
+    );
+  }
+
+  updateProfile(name, about) {
+    return this._postReq(
+      "users/me",
+      "PATCH",
+      { name: name, about: about },
+      this._successHandler,
+      this._errorHandler
+    );
+  }
+
+  addCard(name, link) {
+    return this._postReq(
+      "cards",
+      "POST",
+      { name: name, link: link },
+      this._successHandler,
+      this._errorHandler
+    );
   }
 }

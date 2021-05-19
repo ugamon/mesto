@@ -4,6 +4,7 @@ import Section from "./components/Section.js";
 import { PopupWithForm } from "./components/Popup.js";
 import UserInfo from "./components/UserInfo.js";
 import Api from "./components/Api.js";
+import token from "./credentials.js";
 
 import {
   addButton,
@@ -20,7 +21,7 @@ import "./pages/index.css";
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-24",
   headers: {
-    authorization: "41b03801-bc4d-4d5f-8372-684b2b7fdbc5",
+    authorization: token,
     "Content-Type": "application/json",
   },
 });
@@ -59,6 +60,7 @@ api.getUserInfo().then((user) => {
 
 const profilePopup = new PopupWithForm("#editPopup", (data) => {
   const { name, profession } = data;
+  api.updateProfile(name, profession);
   userInfo.setUserInfo(name, profession);
 });
 
