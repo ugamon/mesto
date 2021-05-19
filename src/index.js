@@ -48,9 +48,13 @@ const cardPopup = new PopupWithForm("#placePopup", (data) => {
 
 cardPopup.setEventListeners();
 
-const userInfo = new UserInfo(".profile__name", ".profile__profession");
+const userInfo = new UserInfo(
+  ".profile__name",
+  ".profile__profession",
+  ".profile__avatar"
+);
 api.getUserInfo().then((user) => {
-  userInfo.setUserInfo(user.name, user.about);
+  userInfo.setUserInfo(user.name, user.about, user.avatar);
 });
 
 const profilePopup = new PopupWithForm("#editPopup", (data) => {
