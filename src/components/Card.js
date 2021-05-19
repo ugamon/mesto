@@ -23,13 +23,14 @@ export class Card {
     this.image = this._getElement(".place__image");
     this.desciption = this._getElement(".place__title");
     this._likeIcon = this._getElement(".place__button-like");
+    this._likesCount = this._getElement(".place__likes-count");
     this.deleteButton = this._getElement(".place__bucket");
     this.previewButton = this._getElement("button:not(.place__bucket)");
   }
 
   _fillLayout() {
     const { link, name, likes } = this._data;
-    console.log(likes.length);
+    this._likesCount.textContent = likes.length;
     this.image.src = link;
     this.image.alt = name;
     this.desciption.textContent = name;
