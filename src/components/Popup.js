@@ -1,5 +1,3 @@
-import UserInfo from "./UserInfo.js";
-
 class Popup {
   constructor(selector) {
     this.popupElement = document.querySelector(selector);

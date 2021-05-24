@@ -1,7 +1,7 @@
 // const token = "41b03801-bc4d-4d5f-8372-684b2b7fdbc5";
 // const groupId = "cohort-24";
 
-export default class Api {
+class RestfullClient {
   constructor(options) {
     this._options = options;
   }
@@ -39,13 +39,17 @@ export default class Api {
   }
 
   _successHandler(res) {
-    //console.log(res.json());
-    return res.json();
+    return res.clone().json();
   }
 
   _errorHandler(err) {
-    console.log(err);
     return Promise.reject(`Error: ${err.status}`);
+  }
+}
+
+export default class Api extends RestfullClient {
+  constructor(options) {
+    super(options);
   }
 
   getUserInfo() {
@@ -61,6 +65,16 @@ export default class Api {
     return this._getReq(
       "cards",
       "GET",
+      this._successHandler,
+      this._errorHandler
+    );
+  }
+
+  updateAvatar(link) {
+    return this._postReq(
+      "users/me/avatar",
+      "PATCH",
+      { avatar: link },
       this._successHandler,
       this._errorHandler
     );
