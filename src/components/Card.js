@@ -3,8 +3,10 @@ import { PopupWithImage } from "./Popup.js";
 const imagePopup = new PopupWithImage("#imagePlacePopup");
 
 export class Card {
-  constructor(data, cardSelector) {
+  constructor(id, data, cardSelector) {
+    this._id = id;
     this._data = data;
+    this._owner = data.owner;
     this._cardSelector = cardSelector;
     this._imagePopup = imagePopup;
   }
@@ -29,11 +31,18 @@ export class Card {
   }
 
   _fillLayout() {
-    const { link, name, likes } = this._data;
+    const { link, name, likes, owner } = this._data;
+    if (owner._id !== this._id) {
+      this._toggleBucketInvisible();
+    }
     this._likesCount.textContent = likes.length;
     this.image.src = link;
     this.image.alt = name;
     this.desciption.textContent = name;
+  }
+
+  _toggleBucketInvisible() {
+    this.deleteButton.classList.add("place__bucket_invisible");
   }
 
   _handleCardDelete(e) {

@@ -5,15 +5,15 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  addItem(domElementToInsert) {
-    this._container.prepend(domElementToInsert);
+  addItem(item) {
+    this._items.unshift(item);
   }
 
   renderItems() {
     //this._cleanContainer();
     this._items.map((item) => {
       const domElementToInsert = this._renderer(item);
-      this.addItem(domElementToInsert);
+      this._container.prepend(domElementToInsert);
     });
   }
 }

@@ -12,7 +12,7 @@ class RestfullClient {
     this._method = method;
   }
 
-  _postReq(urlPath, method, body) {
+  _postReq(urlPath, method, body, successCallback, errorCallback) {
     this._requestOptions(urlPath, method);
 
     return fetch(this._apiUrl, {
@@ -39,10 +39,13 @@ class RestfullClient {
   }
 
   _successHandler(res) {
-    return res.clone().json();
+    const result = res.clone().json();
+    console.log(result);
+    return result;
   }
 
   _errorHandler(err) {
+    console.log(err);
     return Promise.reject(`Error: ${err.status}`);
   }
 }

@@ -27,6 +27,10 @@ const api = new Api({
   },
 });
 
+const state = {
+  _id: "",
+};
+
 //Cards section //
 api
   .getCardList()
@@ -35,21 +39,27 @@ api
       {
         items: cards,
         renderer: (data) => {
-          return new Card(data, cardTemplate).render();
+          return new Card(state._id, data, cardTemplate).render();
         },
       },
       placeContainer
     );
 
     renderPlaces.renderItems();
+
+    const cardPopup = new PopupWithForm("#placePopup", (data) => {
+      console.log(data);
+      api.addCard(data.name, data.link).then((newCardItem) => {
+        renderPlaces.addItem(newCardItem);
+        renderPlaces.renderItems();
+      });
+    });
+
+    cardPopup.setEventListeners();
+
+    addButton.addEventListener("click", () => cardPopup.open());
   })
   .catch((err) => console.log(err));
-
-const cardPopup = new PopupWithForm("#placePopup", (data) => {
-  renderPlaces.addItem(new Card(data, cardTemplate).render());
-});
-
-cardPopup.setEventListeners();
 
 // avatar section //
 const changeAvatarPopup = new PopupWithForm(
@@ -77,6 +87,7 @@ const userInfo = new UserInfo(".profile__name", ".profile__profession");
 
 //initial profile and avatar setup
 api.getUserInfo().then((user) => {
+  state._id = user._id;
   userInfo.setUserInfo(user.name, user.about);
   editAvatar.setAvatarSrc(user.avatar);
 });
@@ -91,7 +102,6 @@ const profilePopup = new PopupWithForm("#editPopup", (data) => {
 profilePopup.setEventListeners();
 
 // buttons sections //
-addButton.addEventListener("click", (e) => cardPopup.open());
 editButton.addEventListener("click", (e) => {
   profilePopup.open();
   const { name, profession } = userInfo.getUserInfo();

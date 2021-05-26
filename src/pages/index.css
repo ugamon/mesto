@@ -29,6 +29,7 @@
 @import url("../blocks/place/__likes-count/place__likes-count.css");
 @import url("../blocks/place/__image/place__image.css");
 @import url("../blocks/place/__bucket/place__bucket.css");
+@import url("../blocks/place/__bucket/_invisible/place__bucket_invisible.css");
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");
 @import url("../blocks/popup/popup.css");
