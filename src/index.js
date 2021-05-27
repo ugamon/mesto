@@ -71,9 +71,14 @@ api
 const changeAvatarPopup = new PopupWithForm(
   "#avatarChangePopup",
   ({ link }) => {
-    api.updateAvatar(link).then((user) => {
-      editAvatar.setAvatarSrc(user.avatar);
-    });
+    api
+      .updateAvatar(link)
+      .then((user) => {
+        editAvatar.setAvatarSrc(user.avatar);
+      })
+      .then(() => {
+        changeAvatarPopup.close();
+      });
   }
 );
 
