@@ -1,7 +1,7 @@
 import { Card } from "./components/Card.js";
 import { FormValidator } from "./components/FormValidator.js";
 import Section from "./components/Section.js";
-import { PopupWithForm } from "./components/Popup.js";
+import { PopupWithForm, PopupDeleteCard } from "./components/Popup.js";
 import UserInfo from "./components/UserInfo.js";
 import EditAvatar from "./components/EditAvatar.js";
 import Api from "./components/Api.js";
@@ -39,7 +39,7 @@ api
       {
         items: cards,
         renderer: (data) => {
-          return new Card(state._id, data, cardTemplate).render();
+          return new Card(state._id, data, cardTemplate, api).render();
         },
       },
       placeContainer
@@ -62,14 +62,13 @@ api
   .catch((err) => console.log(err));
 
 // avatar section //
+
 const changeAvatarPopup = new PopupWithForm(
   "#avatarChangePopup",
   ({ link }) => {
-    api.updateAvatar(link).then(
-      api.getUserInfo().then(({ avatar }) => {
-        editAvatar.setAvatarSrc(avatar);
-      })
-    );
+    api.updateAvatar(link).then((user) => {
+      editAvatar.setAvatarSrc(user.avatar);
+    });
   }
 );
 

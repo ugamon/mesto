@@ -12,7 +12,7 @@ class RestfullClient {
     this._method = method;
   }
 
-  _postReq(urlPath, method, body, successCallback, errorCallback) {
+  _bodyReq(urlPath, method, body, successCallback, errorCallback) {
     this._requestOptions(urlPath, method);
 
     return fetch(this._apiUrl, {
@@ -22,7 +22,7 @@ class RestfullClient {
     }).then((res) => this._requestWrapper(res, successCallback, errorCallback));
   }
 
-  _getReq(urlPath, method, successCallback, errorCallback) {
+  _uriReq(urlPath, method, successCallback, errorCallback) {
     this._requestOptions(urlPath, method);
     return fetch(this._apiUrl, {
       method: this._method,
@@ -56,7 +56,7 @@ export default class Api extends RestfullClient {
   }
 
   getUserInfo() {
-    return this._getReq(
+    return this._uriReq(
       "users/me",
       "GET",
       this._successHandler,
@@ -65,7 +65,7 @@ export default class Api extends RestfullClient {
   }
 
   getCardList() {
-    return this._getReq(
+    return this._uriReq(
       "cards",
       "GET",
       this._successHandler,
@@ -74,7 +74,7 @@ export default class Api extends RestfullClient {
   }
 
   updateAvatar(link) {
-    return this._postReq(
+    return this._bodyReq(
       "users/me/avatar",
       "PATCH",
       { avatar: link },
@@ -84,7 +84,7 @@ export default class Api extends RestfullClient {
   }
 
   updateProfile(name, about) {
-    return this._postReq(
+    return this._bodyReq(
       "users/me",
       "PATCH",
       { name: name, about: about },
@@ -94,10 +94,19 @@ export default class Api extends RestfullClient {
   }
 
   addCard(name, link) {
-    return this._postReq(
+    return this._bodyReq(
       "cards",
       "POST",
       { name: name, link: link },
+      this._successHandler,
+      this._errorHandler
+    );
+  }
+
+  deleteCard(id) {
+    return this._uriReq(
+      `cards/${id}`,
+      "DELETE",
       this._successHandler,
       this._errorHandler
     );

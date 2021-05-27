@@ -15,7 +15,6 @@ export default class EditAvatar {
     this.activateHandler = this._activateHandler.bind(this);
     this.deactivateHandler = this._deactivateHandler.bind(this);
     this.popupHandler = this._popupHandler.bind(this);
-    console.log(this._editAvatarElement);
   }
 
   getAvatarSrc() {

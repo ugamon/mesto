@@ -1,14 +1,19 @@
-import { PopupWithImage } from "./Popup.js";
+import { PopupWithImage, PopupDeleteCard } from "./Popup.js";
 
 const imagePopup = new PopupWithImage("#imagePlacePopup");
+const deletePopup = new PopupDeleteCard("#deletePopup", (api, id) => {
+  api.deleteCard(id).then((data) => console.log(data));
+});
+deletePopup.setEventListeners();
 
 export class Card {
-  constructor(id, data, cardSelector) {
+  constructor(id, data, cardSelector, api) {
     this._id = id;
     this._data = data;
-    this._owner = data.owner;
     this._cardSelector = cardSelector;
+    this._api = api;
     this._imagePopup = imagePopup;
+    this._deletePopup = deletePopup;
   }
 
   _copyTemplate() {
@@ -47,7 +52,8 @@ export class Card {
 
   _handleCardDelete(e) {
     e.preventDefault();
-    e.target.closest(".place").remove();
+    deletePopup.setAttributes(this._api, this._data._id, e);
+    deletePopup.open();
   }
 
   _handleLikeIcon(e) {
