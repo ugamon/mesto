@@ -103,9 +103,27 @@ export default class Api extends RestfullClient {
     );
   }
 
-  deleteCard(id) {
+  deleteCard(cardId) {
     return this._uriReq(
-      `cards/${id}`,
+      `cards/${cardId}`,
+      "DELETE",
+      this._successHandler,
+      this._errorHandler
+    );
+  }
+
+  addLike(cardId) {
+    return this._uriReq(
+      `cards/likes/${cardId}`,
+      "PUT",
+      this._successHandler,
+      this._errorHandler
+    );
+  }
+
+  deleteLike(cardId) {
+    return this._uriReq(
+      `cards/likes/${cardId}`,
       "DELETE",
       this._successHandler,
       this._errorHandler

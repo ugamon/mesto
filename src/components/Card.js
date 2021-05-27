@@ -41,6 +41,16 @@ export class Card {
       this._toggleBucketInvisible();
     }
     this._likesCount.textContent = likes.length;
+    const res = likes.find((element, index, array) => {
+      if (array.length > 0) {
+        return element._id === this._id;
+      } else return False;
+    });
+
+    if (res) {
+      this._likeIcon.classList.add("place__button-like_active");
+    }
+
     this.image.src = link;
     this.image.alt = name;
     this.desciption.textContent = name;
@@ -57,7 +67,18 @@ export class Card {
   }
 
   _handleLikeIcon(e) {
-    this._likeIcon.classList.toggle("place__button-like_active");
+    if (e.target.classList.contains("place__button-like_active")) {
+      this._api.deleteLike(this._data._id).then((data) => {
+        console.log(data);
+        this._likesCount.textContent = data.likes.length;
+        this._likeIcon.classList.remove("place__button-like_active");
+      });
+    } else {
+      this._api.addLike(this._data._id).then((data) => {
+        this._likesCount.textContent = data.likes.length;
+        this._likeIcon.classList.add("place__button-like_active");
+      });
+    }
   }
 
   _handleImagePopupOpen(e) {
