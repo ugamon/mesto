@@ -56,6 +56,9 @@ export class PopupWithForm extends Popup {
     super(selector);
     this._submitCallBack = submitCallBack;
     this._attributes = {};
+    this.submutButtonElement = this.popupElement.querySelector(
+      ".popup__save-button"
+    );
     this._inputslist = this.popupElement.querySelectorAll(".popup__input");
   }
 
@@ -74,8 +77,9 @@ export class PopupWithForm extends Popup {
   _handleCardSubmit(e) {
     e.preventDefault();
     this._getInputValues();
+    this.submutButtonElement.value = "Cохранение...";
     this._submitCallBack(this._attributes);
-    this.close();
+    // this.close();
   }
 
   setUserInfo(name, profession) {
@@ -109,6 +113,7 @@ export class PopupWithForm extends Popup {
 
   close() {
     this._clearInputValues();
+    this.submutButtonElement.value = "Сохранить";
     super.close();
   }
 }

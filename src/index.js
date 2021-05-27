@@ -49,10 +49,15 @@ api
 
     const cardPopup = new PopupWithForm("#placePopup", (data) => {
       console.log(data);
-      api.addCard(data.name, data.link).then((newCardItem) => {
-        renderPlaces.addItem(newCardItem);
-        renderPlaces.renderItems();
-      });
+      api
+        .addCard(data.name, data.link)
+        .then((newCardItem) => {
+          renderPlaces.addItem(newCardItem);
+          renderPlaces.renderItems();
+        })
+        .then(() => {
+          cardPopup.close();
+        });
     });
 
     cardPopup.setEventListeners();
@@ -92,10 +97,21 @@ api.getUserInfo().then((user) => {
 });
 
 // profile section //
+
+const editPopupCallBack = new Promise((resolve, reject) => {});
+
 const profilePopup = new PopupWithForm("#editPopup", (data) => {
   const { name, profession } = data;
-  api.updateProfile(name, profession);
-  userInfo.setUserInfo(name, profession);
+  api
+    .updateProfile(name, profession)
+    .then((data) => {
+      console.log("user data:");
+      console.log(data);
+      userInfo.setUserInfo(name, profession);
+    })
+    .then(() => {
+      profilePopup.close();
+    });
 });
 
 profilePopup.setEventListeners();
