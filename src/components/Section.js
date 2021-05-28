@@ -6,7 +6,8 @@ export default class Section {
   }
 
   addItem(item) {
-    this._items.unshift(item);
+    const domElementToInsert = this._renderer(item);
+    this._container.prepend(domElementToInsert);
   }
 
   renderItems() {
