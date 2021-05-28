@@ -1,7 +1,11 @@
 import { Card } from "./components/Card.js";
 import { FormValidator } from "./components/FormValidator.js";
 import Section from "./components/Section.js";
-import { PopupWithForm, PopupDeleteCard } from "./components/Popup.js";
+import {
+  PopupWithForm,
+  PopupWithImage,
+  PopupDeleteCard,
+} from "./components/Popup.js";
 import UserInfo from "./components/UserInfo.js";
 import EditAvatar from "./components/EditAvatar.js";
 import Api from "./components/Api.js";
@@ -32,6 +36,22 @@ const state = {
 };
 
 //Cards section //
+
+const cardImagePopup = new PopupWithImage("#imagePlacePopup");
+const deleteCardPopup = new PopupDeleteCard("#deletePopup");
+
+cardImagePopup.setEventListeners();
+deleteCardPopup.setEventListeners();
+
+const handleCardClick = (data) => {
+  cardImagePopup.open(data);
+};
+
+const deleteCardCallback = (api, id, e) => {
+  deleteCardPopup.setAttributes(api, id, e);
+  deleteCardPopup.open();
+};
+
 api
   .getCardList()
   .then((cards) => {
@@ -39,7 +59,14 @@ api
       {
         items: cards,
         renderer: (data) => {
-          return new Card(state._id, data, cardTemplate, api).render();
+          return new Card(
+            state._id,
+            data,
+            cardTemplate,
+            api,
+            handleCardClick,
+            deleteCardCallback
+          ).render();
         },
       },
       placeContainer
