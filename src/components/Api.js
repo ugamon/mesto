@@ -12,29 +12,29 @@ class RestfullClient {
     this._method = method;
   }
 
-  _bodyReq(urlPath, method, body, successCallback, errorCallback) {
+  _bodyReq(urlPath, method, body) {
     this._requestOptions(urlPath, method);
 
     return fetch(this._apiUrl, {
       method: this._method,
       headers: this._headers,
       body: JSON.stringify(body),
-    }).then((res) => this._requestWrapper(res, successCallback, errorCallback));
+    }).then((res) => this._requestWrapper(res));
   }
 
-  _uriReq(urlPath, method, successCallback, errorCallback) {
+  _uriReq(urlPath, method) {
     this._requestOptions(urlPath, method);
     return fetch(this._apiUrl, {
       method: this._method,
       headers: this._headers,
-    }).then((res) => this._requestWrapper(res, successCallback, errorCallback));
+    }).then((res) => this._requestWrapper(res));
   }
 
-  _requestWrapper(res, successCallback, errorCallback) {
+  _requestWrapper(res) {
     if (res.ok) {
-      return successCallback(res);
+      return this._successHandler(res);
     } else {
-      return errorCallback(res);
+      return this._errorHandler(res);
     }
   }
 
@@ -56,77 +56,34 @@ export default class Api extends RestfullClient {
   }
 
   getUserInfo() {
-    return this._uriReq(
-      "users/me",
-      "GET",
-      this._successHandler,
-      this._errorHandler
-    );
+    return this._uriReq("users/me", "GET");
   }
 
   getCardList() {
-    return this._uriReq(
-      "cards",
-      "GET",
-      this._successHandler,
-      this._errorHandler
-    );
+    return this._uriReq("cards", "GET");
   }
 
   updateAvatar(link) {
-    return this._bodyReq(
-      "users/me/avatar",
-      "PATCH",
-      { avatar: link },
-      this._successHandler,
-      this._errorHandler
-    );
+    return this._bodyReq("users/me/avatar", "PATCH", { avatar: link });
   }
 
   updateProfile(name, about) {
-    return this._bodyReq(
-      "users/me",
-      "PATCH",
-      { name: name, about: about },
-      this._successHandler,
-      this._errorHandler
-    );
+    return this._bodyReq("users/me", "PATCH", { name: name, about: about });
   }
 
   addCard(name, link) {
-    return this._bodyReq(
-      "cards",
-      "POST",
-      { name: name, link: link },
-      this._successHandler,
-      this._errorHandler
-    );
+    return this._bodyReq("cards", "POST", { name: name, link: link });
   }
 
   deleteCard(cardId) {
-    return this._uriReq(
-      `cards/${cardId}`,
-      "DELETE",
-      this._successHandler,
-      this._errorHandler
-    );
+    return this._uriReq(`cards/${cardId}`, "DELETE");
   }
 
   addLike(cardId) {
-    return this._uriReq(
-      `cards/likes/${cardId}`,
-      "PUT",
-      this._successHandler,
-      this._errorHandler
-    );
+    return this._uriReq(`cards/likes/${cardId}`, "PUT");
   }
 
   deleteLike(cardId) {
-    return this._uriReq(
-      `cards/likes/${cardId}`,
-      "DELETE",
-      this._successHandler,
-      this._errorHandler
-    );
+    return this._uriReq(`cards/likes/${cardId}`, "DELETE");
   }
 }
