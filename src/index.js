@@ -1,11 +1,10 @@
 import { Card } from "./components/Card.js";
 import { FormValidator } from "./components/FormValidator.js";
 import Section from "./components/Section.js";
-import {
-  PopupWithForm,
-  PopupWithImage,
-  PopupDeleteCard,
-} from "./components/Popup.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import PopupDeleteCard from "./components/PopupDeleteCard.js";
+
 import UserInfo from "./components/UserInfo.js";
 import Api from "./components/Api.js";
 import token from "./credentials.js";
@@ -153,7 +152,13 @@ profilePopup.setEventListeners();
 editButton.addEventListener("click", (e) => {
   profilePopup.open();
   const { name, profession } = userInfo.getUserInfo();
-  profilePopup.setUserInfo(name, profession);
+  profilePopup.inputsList.forEach((node) => {
+    if (node.name === "name") {
+      node.value = name;
+    } else {
+      node.value = profession;
+    }
+  });
 });
 
 const formList = Array.from(document.querySelectorAll(config.formSelector));

@@ -1,16 +1,16 @@
-class Popup {
+export default class Popup {
   constructor(selector) {
-    this.popupElement = document.querySelector(selector);
+    this._popupElement = document.querySelector(selector);
     this.handleEscClose = this._handleEscClose.bind(this);
   }
 
   open() {
     document.addEventListener("keydown", this.handleEscClose);
-    this.popupElement.classList.add("popup_opened");
+    this._popupElement.classList.add("popup_opened");
   }
 
   close() {
-    this.popupElement.classList.remove("popup_opened");
+    this._popupElement.classList.remove("popup_opened");
     this._removeEventListeners();
   }
 
@@ -21,7 +21,7 @@ class Popup {
   }
 
   setEventListeners() {
-    this.popupElement.addEventListener("click", (e) => {
+    this._popupElement.addEventListener("click", (e) => {
       if (e.target.classList.contains("popup_opened")) {
         this.close();
       }
@@ -33,115 +33,5 @@ class Popup {
 
   _removeEventListeners() {
     document.removeEventListener("keydown", this.handleEscClose);
-  }
-}
-
-export class PopupWithImage extends Popup {
-  constructor(selector) {
-    super(selector);
-  }
-
-  open({ link, name }) {
-    const imageElement = this.popupElement.querySelector(".popup__image");
-    const headerElement = this.popupElement.querySelector(".popup__header");
-    imageElement.src = link;
-    imageElement.alt = name;
-    headerElement.textContent = name;
-    super.open();
-  }
-}
-
-export class PopupWithForm extends Popup {
-  constructor(selector, submitCallBack) {
-    super(selector);
-    this._submitCallBack = submitCallBack;
-    this._attributes = {};
-    this.submutButtonElement = this.popupElement.querySelector(
-      ".popup__save-button"
-    );
-    this._inputslist = this.popupElement.querySelectorAll(".popup__input");
-  }
-
-  _getInputValues() {
-    this._inputslist.forEach((node) => {
-      this._attributes[node.getAttribute("name")] = node.value;
-    });
-  }
-
-  _clearInputValues() {
-    this._inputslist.forEach((node) => {
-      node.value = "";
-    });
-  }
-
-  _handleCardSubmit(e) {
-    e.preventDefault();
-    this._getInputValues();
-    this.submutButtonElement.value = "Cохранение...";
-    this._submitCallBack(this._attributes);
-    // this.close();
-  }
-
-  setUserInfo(name, profession) {
-    this._inputslist.forEach((node) => {
-      if (node.name === "name") {
-        node.value = name;
-      } else {
-        node.value = profession;
-      }
-    });
-  }
-
-  _removeEventListeners() {
-    this.popupElement.removeEventListener(
-      "submit",
-      this._handleCardSubmit.bind(this)
-    );
-  }
-
-  setEventListeners() {
-    super.setEventListeners();
-    this.popupElement.addEventListener(
-      "submit",
-      this._handleCardSubmit.bind(this)
-    );
-  }
-
-  open() {
-    super.open();
-  }
-
-  close() {
-    this._clearInputValues();
-    this.submutButtonElement.value = "Сохранить";
-    super.close();
-  }
-}
-
-export class PopupDeleteCard extends Popup {
-  constructor(selector) {
-    super(selector);
-  }
-
-  setAttributes(api, id, e) {
-    this._api = api;
-    this._id = id;
-    this._e = e;
-  }
-
-  _handleCardSubmit(e) {
-    e.preventDefault();
-    this._api.deleteCard(this._id).then(() => {
-      this._e.target.closest(".place").remove();
-      this.close();
-    });
-  }
-
-  setEventListeners() {
-    super.setEventListeners();
-    this.popupElement.addEventListener(
-      "submit",
-      this._handleCardSubmit.bind(this)
-    );
   }
 }
