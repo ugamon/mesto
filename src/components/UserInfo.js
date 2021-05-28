@@ -21,9 +21,10 @@ export default class UserInfo {
     };
   }
 
-  setUserInfo(name, profession) {
+  setUserInfo(name, profession, link) {
     this._nameElement.textContent = name;
     this._professionElement.textContent = profession;
+    this._avatarElement.src = link;
   }
 
   setAvatarSrc(link) {

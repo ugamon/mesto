@@ -50,47 +50,6 @@ const deleteCardCallback = (api, id, e) => {
   deleteCardPopup.open();
 };
 
-api
-  .getCardList()
-  .then((cards) => {
-    const renderPlaces = new Section(
-      {
-        items: cards,
-        renderer: (data) => {
-          return new Card(
-            state._id,
-            data,
-            cardTemplate,
-            api,
-            handleCardClick,
-            deleteCardCallback
-          ).render();
-        },
-      },
-      placeContainer
-    );
-
-    renderPlaces.renderItems();
-
-    const cardPopup = new PopupWithForm("#placePopup", (data) => {
-      console.log(data);
-      api
-        .addCard(data.name, data.link)
-        .then((newCardItem) => {
-          renderPlaces.addItem(newCardItem);
-          renderPlaces.renderItems();
-        })
-        .then(() => {
-          cardPopup.close();
-        });
-    });
-
-    cardPopup.setEventListeners();
-
-    addButton.addEventListener("click", () => cardPopup.open());
-  })
-  .catch((err) => console.log(err));
-
 // avatar section //
 
 const changeAvatarPopup = new PopupWithForm(
@@ -103,7 +62,8 @@ const changeAvatarPopup = new PopupWithForm(
       })
       .then(() => {
         changeAvatarPopup.close();
-      });
+      })
+      .catch((err) => console.log(err));
   }
 );
 
@@ -121,36 +81,92 @@ const userInfo = new UserInfo(
 
 userInfo.setEventListeners();
 
-//initial profile and avatar setup
-api.getUserInfo().then((user) => {
-  state._id = user._id;
-  userInfo.setUserInfo(user.name, user.about);
-  userInfo.setAvatarSrc(user.avatar);
-});
+Promise.all([
+  api
+    .getUserInfo()
+    .then((user) => {
+      state._id = user._id;
+      userInfo.setUserInfo(user.name, user.about, user.avatar);
+    })
+    .catch((err) => console.log(err)),
 
-// profile section //
+  api
+    .getCardList()
+    .then((cards) => {
+      const renderPlaces = new Section(
+        {
+          items: cards,
+          renderer: (data) => {
+            return new Card(
+              state._id,
+              data,
+              cardTemplate,
+              api,
+              handleCardClick,
+              deleteCardCallback
+            ).render();
+          },
+        },
+        placeContainer
+      );
 
-const editPopupCallBack = new Promise((resolve, reject) => {});
+      renderPlaces.renderItems();
+
+      const cardPopup = new PopupWithForm("#placePopup", (data) => {
+        api
+          .addCard(data.name, data.link)
+          .then((newCardItem) => {
+            renderPlaces.addItem(newCardItem);
+          })
+          .then(() => {
+            cardPopup.close();
+          })
+          .catch((err) => console.log(err));
+      });
+
+      const cardValidator = new FormValidator(
+        config,
+        cardPopup.popupElement.querySelector(config.formSelector)
+      );
+      cardValidator.enableValidation();
+
+      cardPopup.setEventListeners();
+      addButton.addEventListener("click", () => {
+        cardPopup.open();
+        cardValidator.resetValidation();
+      });
+    })
+    .catch((err) => console.log(err)),
+]);
 
 const profilePopup = new PopupWithForm("#editPopup", (data) => {
   const { name, profession } = data;
   api
     .updateProfile(name, profession)
-    .then((data) => {
+    .then((user) => {
       console.log("user data:");
       console.log(data);
-      userInfo.setUserInfo(name, profession);
+      userInfo.setUserInfo(user.name, user.about, user.avatar);
     })
     .then(() => {
       profilePopup.close();
-    });
+    })
+    .catch((err) => console.log(err));
 });
 
+const profilePopupValidator = new FormValidator(
+  config,
+  profilePopup.popupElement.querySelector(config.formSelector)
+);
+
+profilePopupValidator.enableValidation();
 profilePopup.setEventListeners();
 
 // buttons sections //
 editButton.addEventListener("click", (e) => {
   profilePopup.open();
+  profilePopupValidator.resetValidation();
+
   const { name, profession } = userInfo.getUserInfo();
   profilePopup.inputsList.forEach((node) => {
     if (node.name === "name") {
@@ -161,7 +177,7 @@ editButton.addEventListener("click", (e) => {
   });
 });
 
-const formList = Array.from(document.querySelectorAll(config.formSelector));
-formList.forEach((formElement) => {
-  new FormValidator(config, formElement).enableValidation();
-});
+// const formList = Array.from(document.querySelectorAll(config.formSelector));
+// formList.forEach((formElement) => {
+//   new FormValidator(config, formElement).enableValidation();
+// });

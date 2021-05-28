@@ -5,10 +5,10 @@ export default class PopupWithForm extends Popup {
     super(selector);
     this._submitCallBack = submitCallBack;
     this._attributes = {};
-    this.submutButtonElement = this._popupElement.querySelector(
+    this.submutButtonElement = this.popupElement.querySelector(
       ".popup__save-button"
     );
-    this.inputsList = this._popupElement.querySelectorAll(".popup__input");
+    this.inputsList = this.popupElement.querySelectorAll(".popup__input");
   }
 
   _getInputValues() {
@@ -32,7 +32,7 @@ export default class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupElement.addEventListener(
+    this.popupElement.addEventListener(
       "submit",
       this._handleCardSubmit.bind(this)
     );
