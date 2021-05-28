@@ -7,7 +7,6 @@ import {
   PopupDeleteCard,
 } from "./components/Popup.js";
 import UserInfo from "./components/UserInfo.js";
-import EditAvatar from "./components/EditAvatar.js";
 import Api from "./components/Api.js";
 import token from "./credentials.js";
 import {
@@ -101,7 +100,7 @@ const changeAvatarPopup = new PopupWithForm(
     api
       .updateAvatar(link)
       .then((user) => {
-        editAvatar.setAvatarSrc(user.avatar);
+        userInfo.setAvatarSrc(user.avatar);
       })
       .then(() => {
         changeAvatarPopup.close();
@@ -109,23 +108,25 @@ const changeAvatarPopup = new PopupWithForm(
   }
 );
 
-const editAvatar = new EditAvatar(
-  ".profile__avatar-container",
+changeAvatarPopup.setEventListeners();
+
+const userInfo = new UserInfo(
+  ".profile__name",
+  ".profile__profession",
   ".profile__avatar",
   ".profile__avatar-edit-button",
-  changeAvatarPopup
+  () => {
+    changeAvatarPopup.open();
+  }
 );
 
-editAvatar.setEventListeners();
-
-// user information section //
-const userInfo = new UserInfo(".profile__name", ".profile__profession");
+userInfo.setEventListeners();
 
 //initial profile and avatar setup
 api.getUserInfo().then((user) => {
   state._id = user._id;
   userInfo.setUserInfo(user.name, user.about);
-  editAvatar.setAvatarSrc(user.avatar);
+  userInfo.setAvatarSrc(user.avatar);
 });
 
 // profile section //
