@@ -27,11 +27,11 @@ export class Card {
 
   _layoutSetup() {
     this._image = this._getElement(".place__image");
-    this.desciption = this._getElement(".place__title");
+    this._description = this._getElement(".place__title");
     this._likeIcon = this._getElement(".place__button-like");
     this._likesCount = this._getElement(".place__likes-count");
-    this.deleteButton = this._getElement(".place__bucket");
-    this.previewButton = this._getElement("button:not(.place__bucket)");
+    this._deleteButton = this._getElement(".place__bucket");
+    this._previewButton = this._getElement("button:not(.place__bucket)");
   }
 
   _fillLayout() {
@@ -44,7 +44,7 @@ export class Card {
     const res = likes.find((element, index, array) => {
       if (array.length > 0) {
         return element._id === this._id;
-      } else return False;
+      } else return false;
     });
 
     if (res) {
@@ -53,11 +53,11 @@ export class Card {
 
     this._image.src = link;
     this._image.alt = name;
-    this.desciption.textContent = name;
+    this._description.textContent = name;
   }
 
   _toggleBucketInvisible() {
-    this.deleteButton.classList.add("place__bucket_invisible");
+    this._deleteButton.classList.add("place__bucket_invisible");
   }
 
   _handleCardDelete(e) {
@@ -91,10 +91,10 @@ export class Card {
 
   _addEventListeners() {
     this._likeIcon.addEventListener("click", (e) => this._handleLikeIcon(e));
-    this.deleteButton.addEventListener("click", (e) =>
+    this._deleteButton.addEventListener("click", (e) =>
       this._handleCardDelete(e)
     );
-    this.previewButton.addEventListener("click", (e) =>
+    this._previewButton.addEventListener("click", (e) =>
       this._handleImagePopupOpen(e)
     );
   }

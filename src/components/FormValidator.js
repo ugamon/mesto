@@ -62,6 +62,7 @@ export class FormValidator {
   }
 
   _isValid(inputElement) {
+    // console.log(!inputElement.validity.valid);
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
@@ -75,6 +76,7 @@ export class FormValidator {
     const errorFormElement = this._formElement.querySelector(
       `.${inputElement.id}-error`
     );
+    console.log(inputErrorClass);
 
     inputElement.classList.add(inputErrorClass);
     errorFormElement.textContent = errorMessage;

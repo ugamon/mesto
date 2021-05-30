@@ -1,24 +1,24 @@
-import { Card } from "./components/Card.js";
-import { FormValidator } from "./components/FormValidator.js";
-import Section from "./components/Section.js";
-import PopupWithForm from "./components/PopupWithForm.js";
-import PopupWithImage from "./components/PopupWithImage.js";
-import PopupDeleteCard from "./components/PopupDeleteCard.js";
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupDeleteCard from "../components/PopupDeleteCard.js";
 
-import UserInfo from "./components/UserInfo.js";
-import Api from "./components/Api.js";
-import token from "./credentials.js";
+import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
+import token from "../credentials.js";
 import {
   addButton,
   cardTemplate,
   config,
   editButton,
   placeContainer,
-} from "./utils/constants.js";
+} from "../utils/constants.js";
 
-import "./images/logo.svg";
-import "./images/image.jpg";
-import "./pages/index.css";
+import "../images/logo.svg";
+import "../images/image.jpg";
+import "./index.css";
 
 //Initializing the classes//
 const api = new Api({
@@ -72,72 +72,74 @@ changeAvatarPopup.setEventListeners();
 const userInfo = new UserInfo(
   ".profile__name",
   ".profile__profession",
-  ".profile__avatar",
-  ".profile__avatar-edit-button",
-  () => {
-    changeAvatarPopup.open();
-  }
+  ".profile__avatar"
 );
 
-userInfo.setEventListeners();
+const editAvatarElement = document.querySelector(
+  ".profile__avatar-edit-button"
+);
 
-Promise.all([
-  api
-    .getUserInfo()
-    .then((user) => {
-      state._id = user._id;
-      userInfo.setUserInfo(user.name, user.about, user.avatar);
-    })
-    .catch((err) => console.log(err)),
+const avatarChangeValidator = new FormValidator(
+  config,
+  changeAvatarPopup.popupElement.querySelector(config.formSelector)
+);
 
-  api
-    .getCardList()
-    .then((cards) => {
-      const renderPlaces = new Section(
-        {
-          items: cards,
-          renderer: (data) => {
-            return new Card(
-              state._id,
-              data,
-              cardTemplate,
-              api,
-              handleCardClick,
-              deleteCardCallback
-            ).render();
-          },
+avatarChangeValidator.enableValidation();
+
+editAvatarElement.addEventListener("click", () => {
+  changeAvatarPopup.open();
+  avatarChangeValidator.resetValidation();
+});
+
+Promise.all([api.getUserInfo(), api.getCardList()])
+  .then(([user, cards]) => {
+    state._id = user._id;
+    userInfo.setUserInfo(user.name, user.about, user.avatar);
+    console.log(cards);
+    const renderPlaces = new Section(
+      {
+        items: cards,
+        renderer: (data) => {
+          return new Card(
+            state._id,
+            data,
+            cardTemplate,
+            api,
+            handleCardClick,
+            deleteCardCallback
+          ).render();
         },
-        placeContainer
-      );
+      },
+      placeContainer
+    );
 
-      renderPlaces.renderItems();
+    renderPlaces.renderItems();
 
-      const cardPopup = new PopupWithForm("#placePopup", (data) => {
-        api
-          .addCard(data.name, data.link)
-          .then((newCardItem) => {
-            renderPlaces.addItem(newCardItem);
-          })
-          .then(() => {
-            cardPopup.close();
-          })
-          .catch((err) => console.log(err));
-      });
+    const cardPopup = new PopupWithForm("#placePopup", (data) => {
+      api
+        .addCard(data.name, data.link)
+        .then((newCardItem) => {
+          renderPlaces.addItem(newCardItem);
+        })
+        .then(() => {
+          cardPopup.close();
+        })
+        .catch((err) => console.log(err));
+    });
 
-      const cardValidator = new FormValidator(
-        config,
-        cardPopup.popupElement.querySelector(config.formSelector)
-      );
-      cardValidator.enableValidation();
+    const cardValidator = new FormValidator(
+      config,
+      cardPopup.popupElement.querySelector(config.formSelector)
+    );
+    cardValidator.enableValidation();
 
-      cardPopup.setEventListeners();
-      addButton.addEventListener("click", () => {
-        cardPopup.open();
-        cardValidator.resetValidation();
-      });
-    })
-    .catch((err) => console.log(err)),
-]);
+    cardPopup.setEventListeners();
+    addButton.addEventListener("click", () => {
+      cardPopup.open();
+      cardValidator.resetValidation();
+    });
+  })
+  .catch((err) => console.log(err));
 
 const profilePopup = new PopupWithForm("#editPopup", (data) => {
   const { name, profession } = data;
